@@ -12,6 +12,7 @@
 ## ❗ 写在最前
 
 如果你打开本网页不知如何操作或检索所需的资源，请先点击[GitHub使用指南](https://www.bilibili.com/video/BV1hS4y1S7wL)。
+旧版备份[2025/1/7](https://pan.baidu.com/s/1_YFOqR_eSd8bXokEGMCrbg?pwd=hq33)提取码：hq33
 
 ## ⚡ 前言
 
