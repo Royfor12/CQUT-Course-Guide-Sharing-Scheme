@@ -1,9 +1,9 @@
 # Repository Info
 
-##### *作者：UE-DND*
-###### 最后更新于 2024 / 11 / 16
----
-
+```
+Author: UE-DND
+Latest Update: 2025/01/19
+```
 
 **此文件为 PTA 与 部分程序设计基础实验指导题解**
 
