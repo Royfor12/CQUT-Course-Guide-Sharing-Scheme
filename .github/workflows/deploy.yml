@@ -6,9 +6,12 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions: write-all
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Check out the repo
         uses: actions/checkout@main
