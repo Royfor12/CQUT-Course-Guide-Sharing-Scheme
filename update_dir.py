@@ -11,8 +11,8 @@ branch = os.environ.get("GITHUB_REF_NAME", "main")
 
 # 文本文件走 blob 链接（在线查看），其他文件走 cdn 链接（便于直接下载），大文件反代加速
 BLOB_URL_PREFIX = f"https://github.com/{repo_full}/blob/{branch}/"
-BIN_URL_PREFIX = f"https://cdn.jsdmirror.com/gh/{repo_full}/"
-LARGE_URL_PREFIX = f"https://raw.github.site/{repo_full}/refs/heads/{branch}/"
+BIN_URL_PREFIX = f"https://gh-proxy.com/raw.githubusercontent.com/{repo_full}/refs/heads/{branch}/"
+# LARGE_URL_PREFIX = f"https://gh-proxy.com/raw.githubusercontent.com/{repo_full}/refs/heads/{branch}/"
 
 # 大文件阈值 15MB
 LARGE_THRESHOLD = 15 * 1024 * 1024
@@ -61,17 +61,17 @@ def process_directory(base_dir: str, rel_path: str):
             # 若是 README，则已处理过；否则纳入链接
             if item not in README_CANDIDATES:
                 ext = item.split(".")[-1].lower() if "." in item else ""
-                file_size = os.path.getsize(full_item_path)
+                # file_size = os.path.getsize(full_item_path)
 
                 # blob 类文件链接
                 if ext in BLOB_EXTS:
                     file_url = BLOB_URL_PREFIX + quote(f"{rel_path}/{item}")
                 else:
                     # 大文件链接
-                    if file_size > LARGE_THRESHOLD:
-                        file_url = LARGE_URL_PREFIX + quote(f"{rel_path}/{item}")
-                    else:
-                        file_url = BIN_URL_PREFIX + quote(f"{rel_path}/{item}")
+                    # if file_size > LARGE_THRESHOLD:
+                    #     file_url = LARGE_URL_PREFIX + quote(f"{rel_path}/{item}")
+                    # else:
+                    file_url = BIN_URL_PREFIX + quote(f"{rel_path}/{item}")
 
                 file_links.append((item, file_url))
         else:
