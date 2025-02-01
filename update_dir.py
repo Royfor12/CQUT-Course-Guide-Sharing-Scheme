@@ -78,20 +78,23 @@ def process_directory(base_dir: str, rel_path: str):
             # 是子目录
             subdirs.append(item)
 
-    # 写出当前目录的 index.md
-    index_md_path = os.path.join(docs_folder, "index.md")
-    with open(index_md_path, "w", encoding="utf-8") as wf:
-        # 1) 写 README 内容（若有）
-        if readme_content.strip():
-            wf.write(readme_content.strip())
-            wf.write("\n\n---\n\n")  # 加点空行，避免直接跟标题混在一起
+    if not readme_content.strip() and not file_links:
+        pass
+    else:
+        # 写出当前目录的 index.md
+        index_md_path = os.path.join(docs_folder, "index.md")
+        with open(index_md_path, "w", encoding="utf-8") as wf:
+            # 1) 写 README 内容（若有）
+            if readme_content.strip():
+                wf.write(readme_content.strip())
+                wf.write("\n\n---\n\n")  # 加点空行，避免直接跟标题混在一起
 
-        # 2) 输出大标题“# 文件列表”
-        wf.write("# 文件列表\n")
+            # 2) 输出大标题“# 文件列表”
+            wf.write("# 文件列表\n")
 
-        # 3) 列出当前目录内的文件链接
-        for fname, url in file_links:
-            wf.write(f"- [{fname}]({url})\n")
+            # 3) 列出当前目录内的文件链接
+            for fname, url in file_links:
+                wf.write(f"- [{fname}]({url})\n")
 
     # 递归处理子目录
     for subdir in subdirs:
