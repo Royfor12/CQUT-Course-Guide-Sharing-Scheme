@@ -15,10 +15,10 @@ BIN_URL_PREFIX = f"https://gh-proxy.com/raw.githubusercontent.com/{repo_full}/re
 # LARGE_URL_PREFIX = f"https://gh-proxy.com/raw.githubusercontent.com/{repo_full}/refs/heads/{branch}/"
 
 # 大文件阈值 15MB
-LARGE_THRESHOLD = 15 * 1024 * 1024
+# LARGE_THRESHOLD = 15 * 1024 * 1024
 
 # 顶层排除目录
-EXCLUDE_TOP_DIRS = {'.git', 'docs', '.vscode', '.circleci', 'site', 'image'}
+EXCLUDE_TOP_DIRS = {'.git', 'docs', '.vscode', '.circleci', 'site', 'image', '.github'}
 
 # 视为 README 的文件名
 README_CANDIDATES = {'README.md', 'readme.md', 'index.md'}
@@ -66,14 +66,15 @@ def process_directory(base_dir: str, rel_path: str):
                 # blob 类文件链接
                 if ext in BLOB_EXTS:
                     file_url = BLOB_URL_PREFIX + quote(f"{rel_path}/{item}")
+                    download_url = BIN_URL_PREFIX + quote(f"{rel_path}/{item}")
+                    file_links.append((item, file_url, download_url))
                 else:
                     # 大文件链接
                     # if file_size > LARGE_THRESHOLD:
                     #     file_url = LARGE_URL_PREFIX + quote(f"{rel_path}/{item}")
                     # else:
                     file_url = BIN_URL_PREFIX + quote(f"{rel_path}/{item}")
-
-                file_links.append((item, file_url))
+                    file_links.append((item, file_url))
         else:
             # 是子目录
             subdirs.append(item)
@@ -89,12 +90,17 @@ def process_directory(base_dir: str, rel_path: str):
                 wf.write(readme_content.strip())
                 wf.write("\n\n---\n\n")  # 加点空行，避免直接跟标题混在一起
 
-            # 2) 输出大标题“# 文件列表”
+            # 2) 输出大标题"# 文件列表"
             wf.write("# 文件列表\n")
 
             # 3) 列出当前目录内的文件链接
-            for fname, url in file_links:
-                wf.write(f"- [{fname}]({url})\n")
+            for link_info in file_links:
+                if len(link_info) == 3:
+                    fname, preview_url, download_url = link_info
+                    wf.write(f"- [{fname}]({preview_url}) ([下载]({download_url}))\n")
+                else:
+                    fname, url = link_info
+                    wf.write(f"- [{fname}]({url})\n")
 
     # 递归处理子目录
     for subdir in subdirs:
@@ -102,12 +108,45 @@ def process_directory(base_dir: str, rel_path: str):
         full_subdir_path = os.path.join(base_dir, subdir)
         process_directory(full_subdir_path, sub_rel_path)
 
+def create_mathjax_support():
+    js_dir = os.path.join("docs", "javascripts")
+    if not os.path.exists(js_dir):
+        os.makedirs(js_dir)
+
+    mathjax_path = os.path.join(js_dir, "mathjax.js")
+    mathjax_content = """window.MathJax = {
+  tex: {
+    inlineMath: [["\\\\(", "\\\\)"]],
+    displayMath: [["\\\\[", "\\\\]"]],
+    processEscapes: true,
+    processEnvironments: true
+  },
+  options: {
+    ignoreHtmlClass: ".*|",
+    processHtmlClass: "arithmatex"
+  }
+};
+
+document$.subscribe(() => { 
+  MathJax.startup.output.clearCache()
+  MathJax.typesetClear()
+  MathJax.texReset()
+  MathJax.typesetPromise()
+})
+"""
+
+    with open(mathjax_path, "w", encoding="utf-8") as f:
+        f.write(mathjax_content)
+
 
 if __name__ == "__main__":
 
     # 确保 docs 目录存在
     if not os.path.exists("docs"):
         os.mkdir("docs")
+
+    # MathJax 支持
+    create_mathjax_support()
 
     # 排除 EXCLUDE_TOP_DIRS
     top_dirs = []
