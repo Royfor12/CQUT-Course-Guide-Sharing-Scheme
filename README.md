@@ -7,12 +7,13 @@
 [![](https://img.shields.io/github/forks/Royfor12/CQUT-Course-Guide-Sharing-Scheme.svg?style=flat)](https://github.com/Royfor12/CQUT-Course-Guide-Sharing-Scheme/forks)
 [![](https://img.shields.io/github/issues-pr-closed-raw/Royfor12/CQUT-Course-Guide-Sharing-Scheme.svg?style=flat)](https://github.com/Royfor12/CQUT-Course-Guide-Sharing-Scheme/pulls)
 ![](https://img.shields.io/github/repo-size/Royfor12/CQUT-Course-Guide-Sharing-Scheme.svg?style=flat)
-[![jsdelivr](https://img.shields.io/badge/CDN-jsdelivr-brightgreen?logo=jsdelivr&logoSize=auto)](https://www.jsdelivr.com/)
+[![gh-proxy](https://img.shields.io/badge/CDN-gh_proxy-brightgreen?logo=github&logoSize=auto)](https://gh-proxy.com/)
 
 ## ❗ 写在最前
 
-如果你打开本网页不知如何操作或检索所需的资源，请先点击[GitHub使用指南](https://www.bilibili.com/video/BV1hS4y1S7wL)。  
-旧版备份[2025/1/7](https://pan.baidu.com/s/1_YFOqR_eSd8bXokEGMCrbg?pwd=hq33)提取码：hq33
+- 推荐使用本仓库的[前端网页](https://Royfor12.github.io/CQUT-Course-Guide-Sharing-Scheme)以获得更好的体验。所有资源都经加速处理，无需任何VPN/代理即可高速下载。
+- 如果你打开本网页不知如何操作或检索所需的资源，请先点击[GitHub使用指南](https://www.bilibili.com/video/BV1hS4y1S7wL)。  
+- 旧版备份[2025/1/7](https://pan.baidu.com/s/1_YFOqR_eSd8bXokEGMCrbg?pwd=hq33)提取码：hq33
 
 ## ⚡ 前言
 
@@ -59,7 +60,7 @@
 
 1. 你当然可以克隆或者下载整个项目，但因为整个项目较大，可能对于一部分人不太方便。这里对于使用Chrome和Firefox的用户，我们推荐一个[Chrome插件](https://chrome.google.com/webstore/detail/gitzip-for-github/ffabmkklhbepgcgfonabamgnfafbdlkn?hl=en)和[Firefox插件](https://addons.mozilla.org/en-US/firefox/addon/gitzip/)，**GitZip**。该插件可以让我们只下载项目中我们感兴趣的那些文件夹，也就是我们所感兴趣的课程的资料。同时对Opera用户来说，大部分的Chrome插件都可以通过一款名为[Install Chrome Extensions](https://addons.opera.com/zh-cn/extensions/details/install-chrome-extensions/)的Opera插件安装使用，GitZip也不例外。而对于使用其他浏览器的朋友来说，很遗憾，这个插件暂时只能在这三款浏览器中使用。
 2. 或者复制想要打包下载文件夹的网址，粘贴入[DownGit](https://minhaskamal.github.io/DownGit/#/home)中，选择**download**即可。
-3. 访问 **https://Royfor12.github.io/CQUT-Course-Guide-Sharing-Scheme** 。文件下载加速CDN由 [![jsdelivr](https://img.shields.io/badge/CDN-jsdelivr-brightgreen?logo=jsdelivr&logoSize=auto)](https://www.jsdelivr.com/) 及其镜像站提供。
+3. 访问 **https://Royfor12.github.io/CQUT-Course-Guide-Sharing-Scheme** 。文件下载加速CDN由 [![gh-proxy](https://img.shields.io/badge/CDN-gh_proxy-brightgreen?logo=github&logoSize=auto)](https://gh-proxy.com/) 提供。
 
 注：对于第一种方法而言，它需要使用者拥有github账号，并且该插件需要使用者的授权；而第二种方法虽然一次只能下载一个文件夹，但它并不需要使用者拥有github账号。
 

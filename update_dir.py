@@ -20,19 +20,33 @@ BIN_URL_PREFIX = f"https://gh-proxy.com/raw.githubusercontent.com/{repo_full}/re
 # 顶层排除目录
 EXCLUDE_TOP_DIRS = {'.git', 'docs', '.vscode', '.circleci', 'site', 'image', '.github'}
 
-# 视为 README 的文件名
-README_CANDIDATES = {'README.md', 'readme.md', 'index.md'}
-
 # 生成 blob 链接
-BLOB_EXTS = {'md', 'txt', 'c', 'cpp', 'py'}
+BLOB_EXTS = {'txt', 'c', 'cc', 'cpp', 'hpp', 'cs', 'h', 'py', 'java', 'js', 'ts', 'htm', 'html', 'css', 'xml', 'json', 'yaml', 'yml', 'sh', 'bat', 'ipynb', 'm'}
 
+
+def auto_read(path: str):
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return f.read()
+    except UnicodeDecodeError:
+        pass
+
+    for encoding in ("gbk", "gb2312", "gb18030", "cp1252", "latin1"):
+        try:
+            with open(path, "r", encoding=encoding) as f:
+                return f.read()
+        except UnicodeDecodeError:
+            continue
+
+    with open(path, "r", encoding="utf-8", errors="replace") as f:
+        return "解码失败！\n" + f.read()
 
 def process_directory(base_dir: str, rel_path: str):
     """
     将 base_dir(绝对路径) 对应的目录内容，递归生成到 docs/rel_path 目录下的 index.md 中。
-    1. 若有 README_CANDIDATES 中任意文件，则将其内容原样写入。
-    2. 新起一行后，输出大标题 "# 文件列表"。
-    3. 列出当前目录所有文件的链接（md/txt -> blob，其它 -> cdn）。
+    1. 根据目录内容写入合适的一级大标题。
+    2. 分块写入所有的.md。
+    3. 列出当前目录所有文件的链接，图片附加预览。
     4. 对各子文件夹，递归调用 process_directory，生成各自的 docs/rel_path/subfolder/index.md。
     """
 
@@ -43,14 +57,11 @@ def process_directory(base_dir: str, rel_path: str):
 
     items = sorted(os.listdir(base_dir))
 
-    # 尝试找到任意一个 README
-    readme_content = ""
-    for candidate in README_CANDIDATES:
-        if candidate in items:
-            readme_path = os.path.join(base_dir, candidate)
-            with open(readme_path, "r", encoding="utf-8") as rf:
-                readme_content = rf.read()
-            break  # 找到一个就可以退出
+    # 读取所有.md
+    md_parts = []
+    for md in [f for f in items if f.lower().endswith(".md")]:
+        md_parts.append(f"## {md}\n\n{auto_read(os.path.join(base_dir, md)).strip()}")
+    readme_content = "\n\n---\n\n".join(md_parts)
 
     # 收集文件链接列表
     file_links = []
@@ -58,8 +69,7 @@ def process_directory(base_dir: str, rel_path: str):
     for item in items:
         full_item_path = os.path.join(base_dir, item)
         if os.path.isfile(full_item_path):
-            # 若是 README，则已处理过；否则纳入链接
-            if item not in README_CANDIDATES:
+            if not item.lower().endswith(".md"):
                 ext = item.split(".")[-1].lower() if "." in item else ""
                 # file_size = os.path.getsize(full_item_path)
 
@@ -85,13 +95,22 @@ def process_directory(base_dir: str, rel_path: str):
         # 写出当前目录的 index.md
         index_md_path = os.path.join(docs_folder, "index.md")
         with open(index_md_path, "w", encoding="utf-8") as wf:
+            # 一级标题
+            if readme_content.strip() and file_links:
+                wf.write("# 额外说明及文件下载\n\n")
+            elif readme_content.strip():
+                wf.write("# 额外说明\n\n")
+            else:
+                wf.write("# 文件下载\n\n")
+
             # 1) 写 README 内容（若有）
             if readme_content.strip():
                 wf.write(readme_content.strip())
                 wf.write("\n\n---\n\n")  # 加点空行，避免直接跟标题混在一起
 
-            # 2) 输出大标题"# 文件列表"
-            wf.write("# 文件列表\n")
+            # 2) 输出标题 "文件列表"
+            if file_links:
+                wf.write("# 文件列表\n")
 
             # 3) 列出当前目录内的文件链接
             for link_info in file_links:
@@ -101,6 +120,8 @@ def process_directory(base_dir: str, rel_path: str):
                 else:
                     fname, url = link_info
                     wf.write(f"- [{fname}]({url})\n")
+                    if fname.lower().endswith((".jpg", ".jpeg", ".png", ".gif")):
+                        wf.write(f"![{fname}]({url})\n")
 
     # 递归处理子目录
     for subdir in subdirs:
