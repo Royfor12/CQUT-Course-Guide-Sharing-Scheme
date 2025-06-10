@@ -1,0 +1,833 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>SQLite 入门</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.highlight-default_background {
+	color: rgba(50, 48, 44, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(115, 114, 110, 1);
+	fill: rgba(115, 114, 110, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(205, 60, 58, 1);
+	fill: rgba(205, 60, 58, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="209c8552-f83b-80a0-a347-ee6bf0aabced" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/gradients_3.png" style="object-position:center 60%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">📗</span></div><h1 class="page-title">SQLite 入门</h1><p class="page-description"></p><table class="properties"><tbody><tr class="property-row property-row-created_by"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(71, 70, 68, 0.6);flex-shrink:0" class="typesCreatedBy"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 10.4229C6.05176 10.4229 4.54785 11.1133 3.83008 11.9131C2.90039 10.9082 2.33301 9.55469 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 9.55469 13.1064 10.9082 12.1699 11.9131C11.4521 11.1133 9.94824 10.4229 8 10.4229ZM8 9.30176C9.32617 9.30859 10.3516 8.18066 10.3516 6.71094C10.3516 5.33008 9.31934 4.18164 8 4.18164C6.6875 4.18164 5.6416 5.33008 5.64844 6.71094C5.65527 8.18066 6.68066 9.28809 8 9.30176Z"></path></svg></span>创建者</th><td><span class="user"><img src="SQLite%20%E5%85%A5%E9%97%A8%20209c8552f83b80a0a347ee6bf0aabced/20250115_111602.jpg" class="icon user-icon"/>UE-DND</span></td></tr><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(71, 70, 68, 0.6);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>创建时间</th><td><time>@2025年6月5日 21:50</time></td></tr><tr class="property-row property-row-last_edited_by"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(71, 70, 68, 0.6);flex-shrink:0" class="typesCreatedBy"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 10.4229C6.05176 10.4229 4.54785 11.1133 3.83008 11.9131C2.90039 10.9082 2.33301 9.55469 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 9.55469 13.1064 10.9082 12.1699 11.9131C11.4521 11.1133 9.94824 10.4229 8 10.4229ZM8 9.30176C9.32617 9.30859 10.3516 8.18066 10.3516 6.71094C10.3516 5.33008 9.31934 4.18164 8 4.18164C6.6875 4.18164 5.6416 5.33008 5.64844 6.71094C5.65527 8.18066 6.68066 9.28809 8 9.30176Z"></path></svg></span>上次编辑者</th><td><span class="user"><img src="SQLite%20%E5%85%A5%E9%97%A8%20209c8552f83b80a0a347ee6bf0aabced/20250115_111602.jpg" class="icon user-icon"/>UE-DND</span></td></tr><tr class="property-row property-row-last_edited_time"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(71, 70, 68, 0.6);flex-shrink:0" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>上次编辑时间</th><td><time>@2025年6月6日 22:17</time></td></tr><tr class="property-row property-row-status"><th><span class="icon property-icon"><svg aria-hidden="true" role="graphics-symbol" viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(71, 70, 68, 0.6);flex-shrink:0" class="typesStatus"><path d="M8.75488 1.02344C8.75488 0.613281 8.41309 0.264648 8.00293 0.264648C7.59277 0.264648 7.25098 0.613281 7.25098 1.02344V3.11523C7.25098 3.51855 7.59277 3.86719 8.00293 3.86719C8.41309 3.86719 8.75488 3.51855 8.75488 3.11523V1.02344ZM3.91504 5.0293C4.20215 5.31641 4.69434 5.32324 4.97461 5.03613C5.26855 4.74902 5.26855 4.25684 4.98145 3.96973L3.53906 2.52051C3.25195 2.2334 2.7666 2.21973 2.47949 2.50684C2.19238 2.79395 2.18555 3.28613 2.47266 3.57324L3.91504 5.0293ZM10.9629 4.01758C10.6826 4.30469 10.6826 4.79688 10.9697 5.08398C11.2568 5.37109 11.749 5.36426 12.0361 5.07715L13.4854 3.62793C13.7725 3.34082 13.7725 2.84863 13.4785 2.55469C13.1982 2.27441 12.7061 2.27441 12.4189 2.56152L10.9629 4.01758ZM15.0234 8.78906C15.4336 8.78906 15.7822 8.44727 15.7822 8.03711C15.7822 7.62695 15.4336 7.28516 15.0234 7.28516H12.9385C12.5283 7.28516 12.1797 7.62695 12.1797 8.03711C12.1797 8.44727 12.5283 8.78906 12.9385 8.78906H15.0234ZM0.975586 7.28516C0.56543 7.28516 0.223633 7.62695 0.223633 8.03711C0.223633 8.44727 0.56543 8.78906 0.975586 8.78906H3.07422C3.48438 8.78906 3.83301 8.44727 3.83301 8.03711C3.83301 7.62695 3.48438 7.28516 3.07422 7.28516H0.975586ZM12.0361 10.9902C11.749 10.71 11.2568 10.71 10.9629 10.9971C10.6826 11.2842 10.6826 11.7764 10.9697 12.0635L12.4258 13.5127C12.7129 13.7998 13.2051 13.793 13.4922 13.5059C13.7793 13.2256 13.7725 12.7266 13.4854 12.4395L12.0361 10.9902ZM2.52051 12.4395C2.22656 12.7266 2.22656 13.2188 2.50684 13.5059C2.79395 13.793 3.28613 13.7998 3.57324 13.5127L5.02246 12.0703C5.31641 11.7832 5.31641 11.291 5.03613 11.0039C4.74902 10.7168 4.25684 10.71 3.96973 10.9971L2.52051 12.4395ZM8.75488 12.9658C8.75488 12.5557 8.41309 12.207 8.00293 12.207C7.59277 12.207 7.25098 12.5557 7.25098 12.9658V15.0576C7.25098 15.4609 7.59277 15.8096 8.00293 15.8096C8.41309 15.8096 8.75488 15.4609 8.75488 15.0576V12.9658Z"></path></svg></span>状态</th><td><span class="status-value select-value-color-green"><div class="status-dot status-dot-color-green"></div>已完成</span></td></tr></tbody></table></header><div class="page-body"><h1 id="209c8552-f83b-80f2-a051-c327590502fb" class="">一、为什么我推荐 SQLite</h1><blockquote id="20ac8552-f83b-806e-89a5-c0f24f6037a7" class="">简单就是硬道理。</blockquote><div id="209c8552-f83b-809a-b194-d514a75b62ac" class="column-list"><div id="209c8552-f83b-8078-8f18-e04c9d222fc6" style="width:56.25%" class="column"><figure id="209c8552-f83b-80e6-98bc-d9e86a3a86cd" class="image"><a href="SQLite%20%E5%85%A5%E9%97%A8%20209c8552f83b80a0a347ee6bf0aabced/image.png"><img style="width:672.638916015625px" src="SQLite%20%E5%85%A5%E9%97%A8%20209c8552f83b80a0a347ee6bf0aabced/image.png"/></a></figure></div><div id="209c8552-f83b-8005-afc0-ed5d4cdfac8b" style="width:43.75%" class="column"><figure id="209c8552-f83b-802a-86b9-eb7c0886daf4" class="image"><a href="SQLite%20%E5%85%A5%E9%97%A8%20209c8552f83b80a0a347ee6bf0aabced/image%201.png"><img style="width:1393.3160400390625px" src="SQLite%20%E5%85%A5%E9%97%A8%20209c8552f83b80a0a347ee6bf0aabced/image%201.png"/></a></figure></div></div><p id="209c8552-f83b-80e4-a32b-dd9351b0ff67" class="">上图是《程序设计实践II》任务书中的二选一题目，这两个题目都提到推荐使用 <strong>MySQL </strong>作为数据库管理系统。</p><p id="209c8552-f83b-8062-a1aa-d2e75802c845" class="">
+</p><p id="209c8552-f83b-8053-8eca-ecf4bed8913f" class="">但我认为，对于这类小型项目，使用 <strong>MySQL </strong>有如大炮打蚊子、杀鸡用牛刀。对于初学者来说，我更推荐使用 <strong>SQLite</strong> 作为数据库管理系统，原因有三：</p><ol type="1" id="209c8552-f83b-80c8-b7a7-e3a1859b4959" class="numbered-list" start="1"><li>配置简单：不需要任何配置，也不需要通过网络端口连接数据库等复杂操作。</li></ol><ol type="1" id="209c8552-f83b-80a1-9962-f0f3d5e542f7" class="numbered-list" start="2"><li>语法简单：省略了很多用不上的复杂功能，基础语法非常简单。</li></ol><ol type="1" id="209c8552-f83b-8046-b123-d9c1328d2788" class="numbered-list" start="3"><li>迁移简单：只要目标环境支持且文件完整，可以直接将数据库文件拷贝到另一台电脑上，相当于你给别人发送了一个 Word 文档，对方点击就能打开并查看里面的内容。而 <strong>MySQL </strong>需要复杂的迁移操作。</li></ol><p id="20ac8552-f83b-8060-ae8e-c58930714aea" class="">
+</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="20ac8552-f83b-80ec-9dcd-ee5e97ea5d50"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><blockquote id="20ac8552-f83b-8082-82a2-dfc8f3beb5f4" class="">任务书推荐 <strong>MySQL</strong> 更多是出于<strong>未来就业技能培养</strong>的考虑。</blockquote><p id="20ac8552-f83b-8026-9990-f848c8b96fbe" class="">如果你想快速高效地完成这个项目，并且深刻理解“用合适的工具做合适的事”，那么大胆地使用 SQLite！</p><p id="20ac8552-f83b-8094-9035-faeeb41a5d32" class="">如果你想借此机会挑战一下自己，学习和掌握更通用的企业级数据库技术，那么按照任务书的建议去折腾一下 MySQL 也是非常有价值的。</p></div></figure><p id="20ac8552-f83b-801e-9696-c04707bb2f66" class="">
+</p><h1 id="209c8552-f83b-8066-961c-e41086e0f2b4" class="">二、SQL？</h1><blockquote id="209c8552-f83b-80b1-9b4a-fac88cc1c8eb" class="">说了这么多，又是 MySQL 又是 SQLite，它们究竟是什么，为什么作业需要用到它们？</blockquote><p id="20ac8552-f83b-80f7-9e08-da359edc31d9" class="">
+</p><p id="209c8552-f83b-80d0-8306-e0dc6c3a62bf" class="">观察 MySQL 和 SQLite 这两个名称，你会发现它们有一个共同点——SQL。</p><p id="209c8552-f83b-80b4-83bf-f48199d2babf" class="">要想了解 MySQL 和 SQLite，我们先从 SQL 说起。</p><p id="20ac8552-f83b-80eb-9f25-cde3dac902a7" class="">
+</p><p id="20ac8552-f83b-802d-865c-c004bf6ae2d4" class="">SQL (Structured Query Language)，中文全称<strong>“结构化查询语言”</strong>，日常读作 <strong>/ˈsiːkwəl/ 。</strong></p><p id="20ac8552-f83b-803f-b366-c8f85c4deb68" class="">它是一种专门设计用来与数据库进行通信的语言规范。</p><p id="20ac8552-f83b-808a-be7f-f25212f992ce" class="">
+</p><h3 id="20ac8552-f83b-807e-a5e9-ee220353d875" class=""><strong>为什么需要数据库？</strong></h3><p id="20ac8552-f83b-8047-84ee-f6d7eab86092" class="">在上学期的课程设计任务中，我们通过C语言文件IO简单地读写文件。这种操作虽然便利，但就像把所有资料都随意扔进单个抽屉里，当需要查找时，不仅效率低下，还容易把其它资料弄乱。</p><p id="20ac8552-f83b-80f5-a0c9-c416b4d43846" class="">数据库，就相当于配备了管理员的大图书馆。它将资料分门别类地放好，将需要频繁查看的资料放在最显眼的位置，还有防盗措施……大大提高了资料的查找效率和安全性。</p><p id="20ac8552-f83b-8055-87eb-ff7f85c10dbc" class="">
+</p><p id="20ac8552-f83b-805d-8a4f-e6d33fd1194b" class="">学习了 SQL， 我们就能操控数据库，完成对资料的增、删、查、改等一系列操作。</p><p id="20ac8552-f83b-8080-837d-f557a1ce7161" class="">
+</p><h3 id="20ac8552-f83b-8084-bb2a-d2d389d9ec18" class="">MySQL 和 SQLite</h3><p id="20ac8552-f83b-80e0-b9f2-df653a8a282b" class="">可能和你猜测的不太一样，虽然 MySQL 和 SQLite 中都有 SQL，但它们并不是语言规范，而是基于 SQL 开发出的软件产品。</p><p id="20ac8552-f83b-803c-8794-ec23c021195c" class="">
+</p><p id="20ac8552-f83b-80c2-95b1-dfa82dcd1d61" class="">打个不太恰当的比喻，MySQL 和 SQLite 就像谷歌浏览器和Edge浏览器，虽然它们的名字不同，软件页面的设计也不同，但它们都使用 Chromium 作为内核。</p><p id="20ac8552-f83b-80fd-94bc-df4badc8e603" class="">
+</p><p id="20ac8552-f83b-801d-8a3a-f5080edad3b2" class="">同样，MySQL 和 SQLite 都遵循了 SQL 标准，所以对于这两个软件，你可以用类似的 SQL 语法操作它们，但它们在功能等方面有显著差异。MySQL 主要针对企业场景以及大型项目，它的操作更复杂，语法也在 SQL 的基础上作了很多更改。而 SQLite 正如它的名字一样：轻量化，同时针对这种小型项目也更加容易配置。</p><p id="20ac8552-f83b-806a-80fb-e6da4864f6ee" class="">
+</p><h1 id="20ac8552-f83b-80d9-aef1-edb2aca836cb" class="">三、安装 SQLite</h1><blockquote id="20ac8552-f83b-80ea-8411-f6bf9d6a8d1e" class="">既然 SQLite 是一个软件，我们就必须先安装再使用。</blockquote><p id="20ac8552-f83b-80cb-847d-de4a81af300c" class="">
+</p><p id="20ac8552-f83b-80c5-8d2b-e2c0fc182107" class="">下面给出 Windows 和macOS 的安装方式：</p><p id="20ac8552-f83b-80fd-9163-e7d6038c040e" class="">GUI 是图形化界面，可以方便地查看和编辑数据库文件。</p><figure id="20ac8552-f83b-80d6-aaa0-ddc0d210ef11" class="image"><a href="SQLite%20%E5%85%A5%E9%97%A8%20209c8552f83b80a0a347ee6bf0aabced/image%202.png"><img style="width:528px" src="SQLite%20%E5%85%A5%E9%97%A8%20209c8552f83b80a0a347ee6bf0aabced/image%202.png"/></a></figure><p id="20ac8552-f83b-80e4-a523-deebb5b4747c" class="">
+</p><p id="20ac8552-f83b-8073-846e-cb01e119cc0d" class="">CLI 是命令行界面，使用终端查看和编辑数据库文件。</p><figure id="20ac8552-f83b-8030-a76f-f3f922f6cec0" class="image"><a href="SQLite%20%E5%85%A5%E9%97%A8%20209c8552f83b80a0a347ee6bf0aabced/image%203.png"><img style="width:528px" src="SQLite%20%E5%85%A5%E9%97%A8%20209c8552f83b80a0a347ee6bf0aabced/image%203.png"/></a></figure><p id="20ac8552-f83b-8094-8172-f466e0a558e4" class="">
+</p><p id="20ac8552-f83b-8040-8599-cb0c8df292c5" class="">对于 Windows，建议同时安装 GUI 和 CLI。</p><p id="20ac8552-f83b-8083-ae56-c4630f6d6c8d" class="">而对于 macOS，可以只安装 GUI，因为 macOS 中自带一个较低版本的 CLI。如果有需要，可以通过brew 重新安装。</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="20ac8552-f83b-8003-93e5-cd7c5c5d416b"><div style="font-size:1.5em"><span class="icon">🖥️</span></div><div style="width:100%"><p id="20ac8552-f83b-8073-a2bc-c2687874f0e0" class=""><strong>Windows</strong></p><hr id="20ac8552-f83b-8072-88d3-f96db6d157ae"/><ul id="20ac8552-f83b-80cb-8315-fed5c0001751" class="bulleted-list"><li style="list-style-type:disc"><strong>GUI (DB Browser for SQLite)</strong><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-80cf-8b7d-e73107f7a877" class="code"><code class="language-PowerShell" style="white-space:pre-wrap;word-break:break-all">choco install sqlitebrowser</code></pre><p id="20ac8552-f83b-8010-88a1-c1bccedd6e65" class="">安装后桌面上会有两个快捷方式，其中一个是 (SQLCipher)。它是 DB Browser for SQLite 的一部分，提供了处理加密 SQLite 数据库的附加功能。</p></li></ul><hr id="20ac8552-f83b-809f-b8a5-c24f64f5298a"/><ul id="209c8552-f83b-80db-905c-cd9f1bf4bdad" class="bulleted-list"><li style="list-style-type:disc"><strong>CLI</strong><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-8045-9a19-f6eef5658e3e" class="code"><code class="language-PowerShell" style="white-space:pre-wrap;word-break:break-all">choco install sqlite</code></pre></li></ul></div></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="20ac8552-f83b-809b-b1c5-e36987c2caf9"><div style="font-size:1.5em"><span class="icon">💻</span></div><div style="width:100%"><p id="20ac8552-f83b-80df-8537-e555da440b71" class=""><strong>macOS</strong></p><hr id="20ac8552-f83b-80a2-85e4-c08714828a5e"/><ul id="20ac8552-f83b-80e6-917c-fcde1a59e004" class="bulleted-list"><li style="list-style-type:disc"><strong>GUI (DB Browser for SQLite)</strong><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-802e-ae84-c5422e062ebe" class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">brew install --cask db-browser-for-sqlite</code></pre><p id="20ac8552-f83b-803b-aba2-e8294a32edc3" class=""><strong>设置为中文</strong></p><figure id="20ac8552-f83b-80a9-9088-dcadd915b4fd" class="image"><a href="SQLite%20%E5%85%A5%E9%97%A8%20209c8552f83b80a0a347ee6bf0aabced/image%204.png"><img style="width:2880px" src="SQLite%20%E5%85%A5%E9%97%A8%20209c8552f83b80a0a347ee6bf0aabced/image%204.png"/></a><figcaption>选择语言为中文后点击右下角 save 保存并重启应用。</figcaption></figure></li></ul><hr id="20ac8552-f83b-8006-9ec8-e2c1fc116682"/><ul id="20ac8552-f83b-807c-a3ad-f7c7737a9a2e" class="bulleted-list"><li style="list-style-type:disc"><strong>CLI</strong><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-80d0-94b6-fa499ba18a76" class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">brew install sqlite</code></pre></li></ul></div></figure><p id="20ac8552-f83b-802e-acc4-fb1d3c93517c" class="">
+</p><h1 id="20ac8552-f83b-8013-a686-f90414fe487b" class="">四、安装驱动</h1><blockquote id="20ac8552-f83b-80f0-9f0d-cadc83a65a35" class="">我们还需要一个翻译官。</blockquote><p id="20ac8552-f83b-8098-b1ab-f557895956eb" class="">
+</p><p id="20ac8552-f83b-8027-b0fa-d14776a8a2fd" class="">现在，我们再总结一下需求：</p><ul id="20ac8552-f83b-80e8-8db5-c6b99f2a1dad" class="bulleted-list"><li style="list-style-type:disc">我们需要使用数据库帮助我们高效地管理数据。</li></ul><ul id="20ac8552-f83b-80a9-af76-f39c2d3fef84" class="bulleted-list"><li style="list-style-type:disc">对于数据库文件，它是一种特殊格式的文件，我们无法像编辑 .txt 一样直接打开并修改它。我们需要一个<strong>软件</strong>来帮助我们编辑数据库文件，这个软件就是 SQLite。</li></ul><ul id="20ac8552-f83b-80fa-bfe9-e68a5391ec6e" class="bulleted-list"><li style="list-style-type:disc">SQL 是一种语言规范，SQLite 遵循这个语言规范。掌握了 SQL 语法后，我们就可以使用 SQL 命令操控 SQLite 软件。</li></ul><p id="20ac8552-f83b-8049-ba20-fefec9814702" class="">
+</p><p id="20ac8552-f83b-80ff-808a-e06fba003c7a" class=""><strong>但是，如何在我们的 Java 程序里使用 SQL 命令呢？</strong></p><p id="20ac8552-f83b-80aa-a0fb-e51dc12abfbc" class="">事实上，SQL 命令只能在终端使用。在没有引入翻译官前，我们无法在 Java 代码中直接写 SQL 命令，Java 编译器也看不懂这些命令，只会当成普通的字符串。</p><p id="20ac8552-f83b-8087-b5e1-fb04eb2ad742" class="">我们需要引入一个翻译官，它能接收我们写在 Java 代码写的 SQL 命令，然后去和软件沟通，最终让软件对数据库文件进行操作，完成我们发送的命令。</p><p id="20ac8552-f83b-8007-b4ef-c855322773f8" class="">这个翻译官就是 JDBC 驱动程序<strong>规范</strong>。</p><p id="20ac8552-f83b-803c-b12f-e095129f9cbd" class="">
+</p><p id="20ac8552-f83b-80cd-8ae6-dcf4339fbedb" class="">JDBC，全称 Java DataBase Connectivity（Java 数据库连接）。为了更好地理解它的功能，我们将其转换成动词的形式：“Java 连接数据库”。这样看，“翻译官”的角色就很明显了。</p><p id="20ac8552-f83b-80f6-bfb9-e16915c9e6cb" class="">
+</p><p id="20ac8552-f83b-808d-aa38-fcc05d054e45" class="">JDBC 跟 SQL 一样，它们仅仅是开发者参考的规范，不是可以直接使用的工具。为此，我们需要使用 <strong>SQLite-JDBC</strong>，它才是“真正的”那个翻译官。</p><p id="20ac8552-f83b-80c3-88aa-c1dbcca2fed0" class="">SQLite-JDBC 前面的“SQLite”表明这个驱动程序是专门针对 SQLite 软件的。</p><p id="20ac8552-f83b-8011-9cfc-c43a255e3596" class="">前面提到，数据管理软件有很多，虽然它们大部分都基本遵循 SQL 语法，但每个软件的内部设计仍有区别，因此我们需要针对特定软件的驱动。由于我们选择了 SQLite 管理数据库，那么我们就必须选择 SQLite-JDBC 作为驱动程序。</p><p id="20ac8552-f83b-8083-bcee-ca93c2691909" class="">
+</p><p id="20ac8552-f83b-80bb-a495-d3bc8c9afabe" class="">对于安装这个驱动程序，以下有两种不同方法：</p><ul id="20ac8552-f83b-808b-933a-c67742a634f7" class="toggle"><li><details open=""><summary>我是一个新手…</summary><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="20ac8552-f83b-800e-bb5b-cf49b18b6a54"><div style="width:100%"><p id="20ac8552-f83b-80a1-b457-d91a20491c40" class=""><strong>对Java新手（最简单）</strong></p><hr id="20ac8552-f83b-80ca-a728-deb2bfb0c2d5"/><p id="20ac8552-f83b-8020-932d-c0deab4e0a7c" class="">下面这个就是最新版的驱动程序。你也可以去项目的源代码仓库获取 release <a href="https://github.com/xerial/sqlite-jdbc">https://github.com/xerial/sqlite-jdbc</a></p><figure id="20ac8552-f83b-8040-a0ab-f4656fa3216d"><div class="source"><a href="SQLite%20%E5%85%A5%E9%97%A8%20209c8552f83b80a0a347ee6bf0aabced/sqlite-jdbc-3.49.1.0.jar.zip">sqlite-jdbc-3.49.1.0.jar.zip</a></div></figure><p id="20ac8552-f83b-8094-9439-f65fadcacfce" class="">
+</p><p id="20ac8552-f83b-8028-baa6-f07c19e465ab" class="">下载并解压完成后，直接将它放在项目的 lib 文件夹内。如果没有 lib 文件夹，则新建一个。</p><p id="20ac8552-f83b-80dd-a2d1-dd2b161fe85e" class="">这不是必须的操作，但我们需要培养将文件整齐归纳的习惯。</p><figure id="20ac8552-f83b-8026-9c8d-d9e6fe5398d0" class="image"><a href="SQLite%20%E5%85%A5%E9%97%A8%20209c8552f83b80a0a347ee6bf0aabced/image%205.png"><img style="width:356px" src="SQLite%20%E5%85%A5%E9%97%A8%20209c8552f83b80a0a347ee6bf0aabced/image%205.png"/></a></figure></div></figure><p id="20ac8552-f83b-8018-90e7-e80753036a80" class="">
+</p><p id="20ac8552-f83b-80ac-9405-f8f471a64a26" class="">
+</p></details></li></ul><ul id="20ac8552-f83b-8017-a08b-f119ee193dee" class="toggle"><li><details open=""><summary>瞧不起谁？</summary><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="20ac8552-f83b-801d-8240-e63a8ed4ec54"><div style="width:100%"><p id="20ac8552-f83b-80c6-862d-d3616f3a1759" class=""><strong>挑战自己？</strong></p><hr id="20ac8552-f83b-808f-af9f-ca8e1f482571"/><p id="20ac8552-f83b-80e3-8efe-ed8a5859821b" class="">使用 Maven 吧！具体操作我就不展开了。</p></div></figure></details></li></ul><h1 id="20ac8552-f83b-80be-934f-fb210ffc2793" class="">五、SQLite 基本语法</h1><blockquote id="20ac8552-f83b-8027-bbe9-f8e5b6ecfbbc" class="">正式开始操作数据库。</blockquote><p id="20ac8552-f83b-800d-b4e2-df00baf2d1c8" class="">
+</p><p id="20ac8552-f83b-803e-8555-c9411b924652" class="">不知道你有没有这样的疑惑：</p><p id="20ac8552-f83b-805d-aed6-fc4669e01cb0" class="">前面我们提到“掌握了 SQL 语法后，我们就可以使用 SQL 命令操控 SQLite 软件“。为什么标题是“<strong>SQLite</strong> 基本语法”，而不是“SQL 基本语法”？</p><p id="20ac8552-f83b-8041-a3fa-ca293280bfb9" class="">
+</p><p id="20ac8552-f83b-8085-8575-c8af5b04d291" class="">这些软件仅仅是<strong>基本遵守 </strong>SQL 的规范。可能在原有的语法上作了改进，可能在原有的语法上作了删减。因此，我们不得不学习针对特定软件的语法。</p><p id="20ac8552-f83b-802c-a24e-f57b648e9004" class="">
+</p><p id="20ac8552-f83b-8035-9aa6-dcbdad57857a" class="">但别担心，虽然它们仅仅是<strong>基本遵守 </strong>SQL 的规范，但至少还是遵守了的，语法结构仍然有一定程度相似，日后再使用其他软件如 MySQL 也不会非常困难。</p><hr id="20ac8552-f83b-80aa-bc17-d5c013cecc19"/><p id="20ac8552-f83b-8042-8acf-e088524bb2d2" class="">在正式开始前，请确保已经安装好了所有程序。</p><p id="20ac8552-f83b-8064-bb60-f13f8f476616" class="">为了快速上手而不是深入学习，我将直接以代码示例的形式给出，需要自己理解语法结构。</p><p id="20ac8552-f83b-80e7-9c6c-e882b51f065e" class="">注意：</p><p id="20ac8552-f83b-80c5-bb20-d85b3f11f18d" class="">1️⃣ SQLite 命令【关键字】对大小写不敏感，但部分命令的大写形式和小写形式有所区别。为了便于区分命令与普通字符，对于 SQLite 的命令，最好采用区分大小写的方式（通常为大写）。</p><p id="20ac8552-f83b-80a2-8145-db340230e0b9" class="">2️⃣ 哪里要加分号，哪里要加逗号。</p><hr id="20ac8552-f83b-8074-91b2-d2846a1bf35b"/><h3 id="20ac8552-f83b-8067-a831-d7db3a56e81d" class=""><strong>前提</strong></h3><p id="20ac8552-f83b-806b-b9d1-ea8ef8466d94" class="">在 SQL 的规范中，我们必须先定义表格的每一<strong>列（的结构）</strong>，然后才能插入每一<strong>行（的数据）</strong>。</p><p id="20ac8552-f83b-80fa-9e5e-f2a4dd395916" class="">例如：</p><table id="20ac8552-f83b-8066-b107-cc89bbcf77f1" class="simple-table"><thead class="simple-table-header"><tr id="20ac8552-f83b-8063-a919-e2562bb3b13f"><th id="reij" class="simple-table-header-color simple-table-header">学号</th><th id="&lt;O~U" class="simple-table-header-color simple-table-header">姓名</th><th id="aW:G" class="simple-table-header-color simple-table-header">班级</th><th id="oXkd" class="simple-table-header-color simple-table-header">成绩</th></tr></thead><tbody><tr id="20ac8552-f83b-8023-b9f4-c1ac03f8538a"><td id="reij" class="">1</td><td id="&lt;O~U" class="">张三</td><td id="aW:G" class="">一</td><td id="oXkd" class="">100.0</td></tr><tr id="20ac8552-f83b-8086-976d-db04b800d0f1"><td id="reij" class="">2</td><td id="&lt;O~U" class="">李四</td><td id="aW:G" class="">二</td><td id="oXkd" class="">59.0</td></tr><tr id="20ac8552-f83b-80df-87db-c03605bd1def"><td id="reij" class="">3</td><td id="&lt;O~U" class="">王五</td><td id="aW:G" class="">二</td><td id="oXkd" class="">91.0</td></tr></tbody></table><p id="20ac8552-f83b-8026-9353-f43748e3c09b" class="">下面这种表格定义是不合理的，SQL 也不支持这种定义方式。</p><table id="20ac8552-f83b-8043-8dfd-fad8aa1a53dc" class="simple-table"><tbody><tr id="20ac8552-f83b-8038-aa8b-d61225a9c35b"><th id="reij" class="simple-table-header-color simple-table-header">学号</th><td id="&lt;O~U" class="">1</td><td id="aW:G" class="">2</td><td id="oXkd" class="">3</td></tr><tr id="20ac8552-f83b-80ec-bf69-cc7e1d239b58"><th id="reij" class="simple-table-header-color simple-table-header">姓名</th><td id="&lt;O~U" class="">张三</td><td id="aW:G" class="">李四</td><td id="oXkd" class="">王五</td></tr><tr id="20ac8552-f83b-805d-95f7-d5158ce34c1e"><th id="reij" class="simple-table-header-color simple-table-header">班级</th><td id="&lt;O~U" class="">一</td><td id="aW:G" class="">二</td><td id="oXkd" class="">二</td></tr><tr id="20ac8552-f83b-80d1-b20b-f6f7f4218f7f"><th id="reij" class="simple-table-header-color simple-table-header">成绩</th><td id="&lt;O~U" class="">100.0</td><td id="aW:G" class="">59.0</td><td id="oXkd" class="">91.0</td></tr></tbody></table><hr id="20ac8552-f83b-8018-b42d-d93ad4a0942a"/><h3 id="20ac8552-f83b-80e4-8618-eaedfdf37ed1" class="">启动 SQLite</h3><ol type="1" id="20ac8552-f83b-80d5-b1c3-f36528f36347" class="numbered-list" start="1"><li>打开终端</li></ol><ol type="1" id="20ac8552-f83b-8038-9034-ea2c4f4efcb3" class="numbered-list" start="2"><li><code>cd</code>进入指定的目录</li></ol><ol type="1" id="20ac8552-f83b-8021-b5b5-f06d64902364" class="numbered-list" start="3"><li>在终端中输入并回车<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-8049-a5da-cc89a9fdc670" class="code"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">sqlite3</code></pre></li></ol><hr id="20ac8552-f83b-80e2-bb02-db26b08b4030"/><p id="20ac8552-f83b-806a-b06c-c67023277631" class="">为了进行接下来的所有操作，请保证 SQLite 处于启动状态。</p><hr id="20ac8552-f83b-8058-ad64-c394a43c7dc4"/><h3 id="20ac8552-f83b-80a1-8c2f-c25c36be69e0" class="">创建 / 打开一个数据库</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-80b3-9a7e-cc98c928453c" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all"> .open DatabaseName.db</code></pre><ul id="20ac8552-f83b-8019-8d7f-f79cc09a4da9" class="bulleted-list"><li style="list-style-type:disc"><code>DatabaseName</code>数据库的名称</li></ul><ul id="20ac8552-f83b-8061-9eec-e21f09012736" class="bulleted-list"><li style="list-style-type:disc"><code>.db</code>数据库文件后缀（不需要更改）</li></ul><p id="20ac8552-f83b-80b1-88cc-d0aa8b69cf94" class="">如果目录中没有这个文件，将会自动创建；如果存在这个文件，将会打开这个数据库。</p><hr id="20ac8552-f83b-8003-b5b4-d64429b65c94"/><p id="20ac8552-f83b-80df-bfca-c75c73668fe3" class="">为了进行接下来的所有操作，请保证数据库处于打开状态。</p><hr id="20ac8552-f83b-80c6-ab90-e9f2e79a9b41"/><h3 id="20ac8552-f83b-8039-a000-c344da6f291f" class=""><strong>在数据库中创建一个表格</strong></h3><blockquote id="20ac8552-f83b-80d4-8da9-ef6c898349f7" class="">一个数据库是由许多互相关联的表格构成的，这里的表格不是什么高大上的概念，就是你平时填表的那种表格。</blockquote><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-80ec-a51d-e30a3d177429" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">CREATE TABLE IF NOT EXISTS studentss (
+   id INTEGER PRIMARY KEY AUTOINCREMENT,
+   name VARCHAR NOT NULL,
+   class_name TEXT,
+   score REAL
+);</code></pre><ul id="20ac8552-f83b-8012-b5e7-e4950cb10d8b" class="bulleted-list"><li style="list-style-type:disc"><code>CREATE TABLE</code>：新建一个表格</li></ul><ul id="20ac8552-f83b-8021-9a12-d909e9eacca6" class="bulleted-list"><li style="list-style-type:disc"> <code>students</code>：以“students”命名这个表格</li></ul><ul id="20ac8552-f83b-8075-8d84-c4602c037bec" class="bulleted-list"><li style="list-style-type:disc"><code>IF NOT EXISTS</code>：如果目录中不存在叫“students”的表格</li></ul><ul id="20ac8552-f83b-8039-8dc9-ec42729000ce" class="bulleted-list"><li style="list-style-type:disc"><code>id</code>, <code>name</code>, <code>class_name</code>, <code>score</code>：定义了表格第0行从左到右每个格的变量名<table id="20ac8552-f83b-8058-99ba-f0cccc2c9c74" class="simple-table"><tbody><tr id="20ac8552-f83b-805f-aaa7-dd2bc7050a55"><td id="reij" class="">id</td><td id="&lt;O~U" class="">name</td><td id="aW:G" class="">class_name</td><td id="oXkd" class="">score</td></tr></tbody></table><ul id="20ac8552-f83b-80cb-9449-fa8c14f29820" class="toggle"><li><details open=""><summary><strong>为什么是第0行？</strong></summary><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="20ac8552-f83b-809e-b7cb-e32fe9dc093b"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="20ac8552-f83b-80fd-96ee-cc4cd6d204d7" class="">当我们调用基本命令（没有添加筛选条件）显示表格时，上面的变量名实际上是不会显示的。如果我们已经创建了这样的表格并添加了一些数据：</p><table id="20ac8552-f83b-8008-9109-e013d73308e4" class="simple-table"><thead class="simple-table-header"><tr id="20ac8552-f83b-80bf-93a6-f41e0659a377"><th id="reij" class="simple-table-header-color simple-table-header">id</th><th id="&lt;O~U" class="simple-table-header-color simple-table-header">name</th><th id="aW:G" class="simple-table-header-color simple-table-header">class_name</th><th id="oXkd" class="simple-table-header-color simple-table-header">score</th></tr></thead><tbody><tr id="20ac8552-f83b-8095-a5fd-c206a8b89666"><td id="reij" class="">1</td><td id="&lt;O~U" class="">张三</td><td id="aW:G" class="">1</td><td id="oXkd" class="">100</td></tr><tr id="20ac8552-f83b-80f1-952d-fd0526d68ca2"><td id="reij" class="">2</td><td id="&lt;O~U" class="">李四</td><td id="aW:G" class="">2</td><td id="oXkd" class="">59</td></tr><tr id="20ac8552-f83b-8004-a029-e19701ab5641"><td id="reij" class="">3</td><td id="&lt;O~U" class="">张三</td><td id="aW:G" class="">2</td><td id="oXkd" class="">91</td></tr></tbody></table><p id="20ac8552-f83b-80b9-9624-c0d433b79900" class="">实际显示为：</p><table id="20ac8552-f83b-8089-8201-ef1f0268a453" class="simple-table"><tbody><tr id="20ac8552-f83b-800f-896e-f8fc43e809fd"><td id="reij" class="">1</td><td id="&lt;O~U" class="">张三</td><td id="aW:G" class="">1</td><td id="oXkd" class="">100</td></tr><tr id="20ac8552-f83b-802d-9f7f-d48317908b54"><td id="reij" class="">2</td><td id="&lt;O~U" class="">李四</td><td id="aW:G" class="">2</td><td id="oXkd" class="">59</td></tr><tr id="20ac8552-f83b-8003-a864-cee7193ff78d"><td id="reij" class="">3</td><td id="&lt;O~U" class="">张三</td><td id="aW:G" class="">2</td><td id="oXkd" class="">91</td></tr></tbody></table><p id="20ac8552-f83b-8041-9849-de05dec5a21b" class="">称为第0行是为了方便理解，与生活中的表格类似。这样定义实际上代表了每一列的变量名。</p><p id="20ac8552-f83b-80b0-be2d-c41c98fb7dac" class="">
+</p></div></figure></details></li></ul></li></ul><ul id="20ac8552-f83b-801e-b8d3-d905597e3939" class="bulleted-list"><li style="list-style-type:disc"><code>VARCHAR</code>, <code>TEXT</code>, <code>REAL</code>：变量对应的数据类型</li></ul><ul id="20ac8552-f83b-801c-8cbd-daf8439853f1" class="bulleted-list"><li style="list-style-type:disc"><code>NOT NULL</code>：这里的格子不能为空（没有任何值）</li></ul><ul id="20ac8552-f83b-809a-ab60-c6bcce6ed1b5" class="bulleted-list"><li style="list-style-type:disc"><code>PRIMARY KEY</code>：将这个变量作为主键。主键是每一行唯一的标识符，作用是区别张三<table id="20ac8552-f83b-8060-ad42-c1afbbf7d531" class="simple-table"><tbody><tr id="20ac8552-f83b-802f-a2c3-c984999b36b5"><td id="reij" class="">id</td><td id="&lt;O~U" class="">name</td><td id="aW:G" class="">class_name</td><td id="oXkd" class="">score</td></tr><tr id="20ac8552-f83b-802c-8869-d22e83af45ef"><td id="reij" class="">1</td><td id="&lt;O~U" class="">张三</td><td id="aW:G" class="">1</td><td id="oXkd" class="">100.0</td></tr><tr id="20ac8552-f83b-80b0-9218-e465a1958009"><td id="reij" class="">2</td><td id="&lt;O~U" class="">张三</td><td id="aW:G" class="">1</td><td id="oXkd" class="">100.0</td></tr><tr id="20ac8552-f83b-80de-a117-ff57f9e8b283"><td id="reij" class="">3</td><td id="&lt;O~U" class="">李四</td><td id="aW:G" class="">2</td><td id="oXkd" class="">59.0</td></tr></tbody></table></li></ul><ul id="20ac8552-f83b-8095-95ad-fde1d9258483" class="bulleted-list"><li style="list-style-type:disc"><code>AUTOINCREMENT</code>：主键的修饰符，表示变量自增<p id="20ac8552-f83b-808f-a5ca-e5b63792b8df" class="">当我们插入每一行的数据时，只需要输入类似 “王五, 3, 66“ 的结构。</p><p id="20ac8552-f83b-8087-8fbc-c3decb468457" class="">此时<code>id</code>会自动 +1，不需要输入。</p><table id="20ac8552-f83b-8076-8a4f-c7ae170b1145" class="simple-table"><tbody><tr id="20ac8552-f83b-80cb-a69c-d9357ec66577"><td id="reij" class="">id</td><td id="&lt;O~U" class="">name</td><td id="aW:G" class="">class_name</td><td id="oXkd" class="">score</td></tr><tr id="20ac8552-f83b-803e-a873-debf3e9651c9"><td id="reij" class="">1</td><td id="&lt;O~U" class="">张三</td><td id="aW:G" class="">1</td><td id="oXkd" class="">100.0</td></tr><tr id="20ac8552-f83b-8001-9893-c502391de274"><td id="reij" class="">2</td><td id="&lt;O~U" class="">张三</td><td id="aW:G" class="">1</td><td id="oXkd" class="">100.0</td></tr><tr id="20ac8552-f83b-804c-ae8f-f23e006da62e"><td id="reij" class="">3</td><td id="&lt;O~U" class="">李四</td><td id="aW:G" class="">2</td><td id="oXkd" class="">59.0</td></tr><tr id="20ac8552-f83b-8086-8059-c71e4bf8614a"><td id="reij" class="">4</td><td id="&lt;O~U" class="">王五</td><td id="aW:G" class="">3</td><td id="oXkd" class="">66.0</td></tr></tbody></table></li></ul><hr id="20ac8552-f83b-801a-a780-fdc6bf8ffb07"/><h3 id="20ac8552-f83b-806f-a77d-dc03cf4b6d5d" class=""><strong>增</strong>加表格数据</h3><p id="20ac8552-f83b-80c2-b5c6-d82899db9071" class="">在 SQL 的规范中，新添加的每一行数据不能指定插入的位置，只能放在最后一行。</p><p id="20ac8552-f83b-8004-89c0-e029cd6047c4" class="">使用<code>CREATE TABLE</code>新建的表格中没有任何数据（注意下方是第0行，实际不显示）。</p><table id="20ac8552-f83b-8051-967c-e399c0a58b79" class="simple-table"><tbody><tr id="20ac8552-f83b-8019-a935-c8b8f2aa44f4"><td id="reij" class="">id</td><td id="&lt;O~U" class="">name</td><td id="aW:G" class="">class_name</td><td id="oXkd" class="">score</td></tr></tbody></table><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-8061-b94b-ddd54f23a638" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">INSERT INTO students (name, class_name, score)
+VALUES (&#x27;陈六&#x27;, &#x27;一班&#x27;, 85.5);</code></pre><table id="20ac8552-f83b-8069-bd63-c0c8b5eb7dfe" class="simple-table"><tbody><tr id="20ac8552-f83b-803c-ab87-dfff30a7cacf"><td id="reij" class="">id</td><td id="&lt;O~U" class="">name</td><td id="aW:G" class="">class_name</td><td id="oXkd" class="">score</td></tr><tr id="20ac8552-f83b-80ef-b427-c883b77a1928"><td id="reij" class="">1</td><td id="&lt;O~U" class="">陈六</td><td id="aW:G" class="">一班</td><td id="oXkd" class="">85.5</td></tr></tbody></table><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-800c-8638-e543663ea1d7" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">INSERT INTO students (name, class_name, score) VALUES
+(&#x27;李四&#x27;, &#x27;一班&#x27;, 92.0),
+(&#x27;王五&#x27;, &#x27;二班&#x27;, 76.5),
+(&#x27;赵六&#x27;, &#x27;二班&#x27;, 95.0),
+(&#x27;胡七&#x27;, &#x27;三班&#x27;, 98.0);</code></pre><table id="20ac8552-f83b-8028-b379-d8a9b3aabc14" class="simple-table"><tbody><tr id="20ac8552-f83b-8063-b8ab-ed8c4237374e"><td id="reij" class="">id</td><td id="&lt;O~U" class="">name</td><td id="aW:G" class="">class_name</td><td id="oXkd" class="">score</td></tr><tr id="20ac8552-f83b-805b-ade3-f35ce4209f91"><td id="reij" class="">1</td><td id="&lt;O~U" class="">陈六</td><td id="aW:G" class="">一班</td><td id="oXkd" class="">85.5</td></tr><tr id="20ac8552-f83b-80f5-bb1f-d0a14241ff97"><td id="reij" class="">2</td><td id="&lt;O~U" class="">李四</td><td id="aW:G" class="">一班</td><td id="oXkd" class="">92.0</td></tr><tr id="20ac8552-f83b-802d-af38-eb30242db794"><td id="reij" class="">3</td><td id="&lt;O~U" class="">王五</td><td id="aW:G" class="">二班</td><td id="oXkd" class="">76.5</td></tr><tr id="20ac8552-f83b-8020-ac37-f101ab0e388f"><td id="reij" class="">4</td><td id="&lt;O~U" class="">赵六</td><td id="aW:G" class="">二班</td><td id="oXkd" class="">95.0</td></tr><tr id="20ac8552-f83b-809b-b44e-d2dfefcaabad"><td id="reij" class="">5</td><td id="&lt;O~U" class="">胡七</td><td id="aW:G" class="">三班</td><td id="oXkd" class="">98.0</td></tr></tbody></table><hr id="20ac8552-f83b-8027-98a5-ef496ef1e39b"/><h3 id="20ac8552-f83b-80de-b0ac-f7ef159d4e63" class="">删除表格数据</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-80ac-85b5-d9c57ff8031a" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">DELETE FROM table_name WHERE [condition];</code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="20ac8552-f83b-8082-9543-cb318f4a35d9"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><p id="20ac8552-f83b-8030-ac4e-f4311f2884ff" class="">WHERE 不是必须的，但如果没有 WHERE 以及后面的 [condition]，整个表格的数据将会被删除，只留下第0行：</p><table id="20ac8552-f83b-8076-a732-cf22fceb3925" class="simple-table"><tbody><tr id="20ac8552-f83b-80ad-8013-ce444368a4c0"><td id="reij" class="">id</td><td id="&lt;O~U" class="">name</td><td id="aW:G" class="">class_name</td><td id="oXkd" class="">score</td></tr></tbody></table></div></figure><ul id="20ac8552-f83b-809e-98e3-e68431cbdad2" class="bulleted-list"><li style="list-style-type:disc"><code>DELETE FROM</code>：从…地方删除</li></ul><ul id="20ac8552-f83b-8051-8989-fdb1bd40182e" class="bulleted-list"><li style="list-style-type:disc"><code>table_name</code>：表格名称</li></ul><ul id="20ac8552-f83b-80b9-ac22-f363ac402894" class="bulleted-list"><li style="list-style-type:disc"><code>WHERE</code>：哪里</li></ul><ul id="20ac8552-f83b-804a-89f2-cbb5fe449ea3" class="bulleted-list"><li style="list-style-type:disc"><code>condition</code>：满足什么条件。往往是一个表达式。</li></ul><p id="20ac8552-f83b-8016-a6e7-c9b619039df6" class="">编成一句话：删除<code>table_name</code>表格中满足<code>condition</code>条件的行。</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-8046-aa0e-d758c5f98b71" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">DELETE FROM students WHERE id = 3;</code></pre><table id="20ac8552-f83b-8073-a446-dbb3605a9143" class="simple-table"><tbody><tr id="20ac8552-f83b-80f4-8e03-ea84a75fa64c"><td id="reij" class="">id</td><td id="&lt;O~U" class="">name</td><td id="aW:G" class="">class_name</td><td id="oXkd" class="">score</td></tr><tr id="20ac8552-f83b-80e5-9d7f-d747c643924d"><td id="reij" class="">1</td><td id="&lt;O~U" class="">陈六</td><td id="aW:G" class="">一班</td><td id="oXkd" class="">85.5</td></tr><tr id="20ac8552-f83b-8020-963f-eebd0f85aba9"><td id="reij" class="">2</td><td id="&lt;O~U" class="">李四</td><td id="aW:G" class="">一班</td><td id="oXkd" class="">92.0</td></tr><tr id="20ac8552-f83b-800c-87de-e7d76669d5d0"><td id="reij" class="">4</td><td id="&lt;O~U" class="">赵六</td><td id="aW:G" class="">二班</td><td id="oXkd" class="">95.0</td></tr><tr id="20ac8552-f83b-80ad-b815-dbc4203679ab"><td id="reij" class="">5</td><td id="&lt;O~U" class="">胡七</td><td id="aW:G" class="">三班</td><td id="oXkd" class="">98.0</td></tr></tbody></table><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-8068-8461-cabcdd3197bc" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">DELETE FROM students WHERE score &lt; 90;</code></pre><table id="20ac8552-f83b-8071-af5f-e3c8b63b6b2e" class="simple-table"><tbody><tr id="20ac8552-f83b-8053-98c5-d93fcea85b66"><td id="reij" class="">id</td><td id="&lt;O~U" class="">name</td><td id="aW:G" class="">class_name</td><td id="oXkd" class="">score</td></tr><tr id="20ac8552-f83b-8065-b8ba-ccc28b5181e1"><td id="reij" class="">2</td><td id="&lt;O~U" class="">李四</td><td id="aW:G" class="">一班</td><td id="oXkd" class="">92.0</td></tr><tr id="20ac8552-f83b-806c-b2e3-c3ad0aa6feb4"><td id="reij" class="">4</td><td id="&lt;O~U" class="">赵六</td><td id="aW:G" class="">二班</td><td id="oXkd" class="">95.0</td></tr><tr id="20ac8552-f83b-8086-af3e-c1b495a12cac"><td id="reij" class="">5</td><td id="&lt;O~U" class="">胡七</td><td id="aW:G" class="">三班</td><td id="oXkd" class="">98.0</td></tr></tbody></table><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-8090-983a-f3aea885cbbc" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">DELETE FROM students WHERE class_name = &#x27;一班&#x27; OR class_name = &#x27;二班&#x27; ;</code></pre><table id="20ac8552-f83b-807a-b635-dcc650ca4fd8" class="simple-table"><tbody><tr id="20ac8552-f83b-8019-a3de-de6e13068cff"><td id="reij" class="">id</td><td id="&lt;O~U" class="">name</td><td id="aW:G" class="">class_name</td><td id="oXkd" class="">score</td></tr><tr id="20ac8552-f83b-8066-bf06-d51ecf16c626"><td id="reij" class="">5</td><td id="&lt;O~U" class="">胡七</td><td id="aW:G" class="">三班</td><td id="oXkd" class="">98.0</td></tr></tbody></table><p id="20ac8552-f83b-80d8-a8a2-f3756904f658" class="">上面的语句还可以简化</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-80a1-ad5f-c32631471241" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">DELETE FROM students WHERE class_name IN (&#x27;一班&#x27;, &#x27;二班&#x27;);</code></pre><hr id="20ac8552-f83b-80bc-8ff9-ffeec9add4ad"/><h3 id="20ac8552-f83b-8037-b4a4-cced419b7df0" class="">查找表格数据</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-8073-b8dd-d653698fc319" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT * FROM students;</code></pre><table id="20ac8552-f83b-8012-a084-c2d475b37260" class="simple-table"><tbody><tr id="20ac8552-f83b-809d-8117-f13abb84143e"><td id="reij" class="">1</td><td id="&lt;O~U" class="">陈六</td><td id="aW:G" class="">一班</td><td id="oXkd" class="">85.5</td></tr><tr id="20ac8552-f83b-8063-a416-d40f3578c820"><td id="reij" class="">2</td><td id="&lt;O~U" class="">李四</td><td id="aW:G" class="">一班</td><td id="oXkd" class="">92.0</td></tr><tr id="20ac8552-f83b-80d4-bd01-c246b3833847"><td id="reij" class="">3</td><td id="&lt;O~U" class="">王五</td><td id="aW:G" class="">二班</td><td id="oXkd" class="">76.5</td></tr><tr id="20ac8552-f83b-8040-925a-ecd0f654595f"><td id="reij" class="">4</td><td id="&lt;O~U" class="">赵六</td><td id="aW:G" class="">二班</td><td id="oXkd" class="">95.0</td></tr><tr id="20ac8552-f83b-800b-87a3-eeedc9fd397f"><td id="reij" class="">5</td><td id="&lt;O~U" class="">胡七</td><td id="aW:G" class="">三班</td><td id="oXkd" class="">98.0</td></tr></tbody></table><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-80bd-bc1f-f808006c8448" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT name, score FROM students;</code></pre><table id="20ac8552-f83b-8086-b334-cb0a099499e3" class="simple-table"><tbody><tr id="20ac8552-f83b-80d6-aa32-cd81f056698f"><td id="&lt;O~U" class="">陈六</td><td id="oXkd" class="">85.5</td></tr><tr id="20ac8552-f83b-80cf-bcb3-fde4280a8376"><td id="&lt;O~U" class="">李四</td><td id="oXkd" class="">92.0</td></tr><tr id="20ac8552-f83b-80c0-91a5-f726ca53fe03"><td id="&lt;O~U" class="">王五</td><td id="oXkd" class="">76.5</td></tr><tr id="20ac8552-f83b-806b-9361-f453e1dea60d"><td id="&lt;O~U" class="">赵六</td><td id="oXkd" class="">95.0</td></tr><tr id="20ac8552-f83b-80eb-bce5-c47e1943e527"><td id="&lt;O~U" class="">胡七</td><td id="oXkd" class="">98.0</td></tr></tbody></table><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-80c5-a26e-f916b7f790d7" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT * FROM students WHERE class_name = &#x27;一班&#x27;;</code></pre><table id="20ac8552-f83b-800c-b153-fa00667380c6" class="simple-table"><tbody><tr id="20ac8552-f83b-804c-9d11-e2adabef73a2"><td id="reij" class="">1</td><td id="&lt;O~U" class="">陈六</td><td id="aW:G" class="">一班</td><td id="oXkd" class="">85.5</td></tr><tr id="20ac8552-f83b-8070-91ab-e47aa2d19f03"><td id="reij" class="">2</td><td id="&lt;O~U" class="">李四</td><td id="aW:G" class="">一班</td><td id="oXkd" class="">92.0</td></tr></tbody></table><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-80ce-bb40-de436f74b2a7" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT * FROM students WHERE score &gt; 90;</code></pre><table id="20ac8552-f83b-807b-b7f6-f32e75b5892e" class="simple-table"><tbody><tr id="20ac8552-f83b-8029-ad28-de11167910a7"><td id="reij" class="">2</td><td id="&lt;O~U" class="">李四</td><td id="aW:G" class="">一班</td><td id="oXkd" class="">92.0</td></tr><tr id="20ac8552-f83b-804e-8f69-dcf6c1c293e3"><td id="reij" class="">4</td><td id="&lt;O~U" class="">赵六</td><td id="aW:G" class="">二班</td><td id="oXkd" class="">95.0</td></tr><tr id="20ac8552-f83b-80f0-8951-ef167b9364f3"><td id="reij" class="">5</td><td id="&lt;O~U" class="">胡七</td><td id="aW:G" class="">三班</td><td id="oXkd" class="">98.0</td></tr></tbody></table><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-80f6-9bbd-d2bf1d3b86d2" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT * FROM students ORDER BY score DESC;</code></pre><table id="20ac8552-f83b-80e5-8b81-c976dbca3730" class="simple-table"><tbody><tr id="20ac8552-f83b-80e0-a813-ffa5914a9128"><td id="reij" class="">5</td><td id="&lt;O~U" class="">胡七</td><td id="aW:G" class="">三班</td><td id="oXkd" class="">98.0</td></tr><tr id="20ac8552-f83b-800d-a6c9-ee67773be86e"><td id="reij" class="">4</td><td id="&lt;O~U" class="">赵六</td><td id="aW:G" class="">二班</td><td id="oXkd" class="">95.0</td></tr><tr id="20ac8552-f83b-8035-a6de-d4152b4db562"><td id="reij" class="">2</td><td id="&lt;O~U" class="">李四</td><td id="aW:G" class="">一班</td><td id="oXkd" class="">92.0</td></tr><tr id="20ac8552-f83b-80a6-8a35-c6ff47db2e63"><td id="reij" class="">1</td><td id="&lt;O~U" class="">陈六</td><td id="aW:G" class="">一班</td><td id="oXkd" class="">85.5</td></tr><tr id="20ac8552-f83b-804a-87ab-ca564f1aa0ef"><td id="reij" class="">3</td><td id="&lt;O~U" class="">王五</td><td id="aW:G" class="">二班</td><td id="oXkd" class="">76.5</td></tr></tbody></table><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-80ee-9d4b-d23bd03014ab" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">SELECT * FROM students ORDER BY score DESC LIMIT 2;</code></pre><table id="20ac8552-f83b-80f3-a1c8-ecef189617b7" class="simple-table"><tbody><tr id="20ac8552-f83b-8057-b1fd-ee8e402b46d8"><td id="reij" class="">5</td><td id="&lt;O~U" class="">胡七</td><td id="aW:G" class="">三班</td><td id="oXkd" class="">98.0</td></tr><tr id="20ac8552-f83b-80fa-9efa-d8c3e946b138"><td id="reij" class="">4</td><td id="&lt;O~U" class="">赵六</td><td id="aW:G" class="">二班</td><td id="oXkd" class="">95.0</td></tr></tbody></table><hr id="20ac8552-f83b-80a2-80b0-eb3cfdcebadb"/><h3 id="20ac8552-f83b-8027-b3da-c15022e5523d" class="">修改表格数据</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-8040-acd9-d12f5212a69b" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">UPDATE students
+SET score = 98.5
+WHERE name = &#x27;李四&#x27;;</code></pre><table id="20ac8552-f83b-800f-9e62-d6bfab1cff67" class="simple-table"><tbody><tr id="20ac8552-f83b-80a1-aa55-c0c3fa1b2cc2"><td id="reij" class="">id</td><td id="&lt;O~U" class="">name</td><td id="aW:G" class="">class_name</td><td id="oXkd" class="">score</td></tr><tr id="20ac8552-f83b-8057-913e-f4d0d9a91fa7"><td id="reij" class="">1</td><td id="&lt;O~U" class="">陈六</td><td id="aW:G" class="">一班</td><td id="oXkd" class="">85.5</td></tr><tr id="20ac8552-f83b-8002-bc60-f24bb960468d"><td id="reij" class="">2</td><td id="&lt;O~U" class="">李四</td><td id="aW:G" class="">一班</td><td id="oXkd" class="">98.5</td></tr><tr id="20ac8552-f83b-804d-bb94-cca408718387"><td id="reij" class="">3</td><td id="&lt;O~U" class="">王五</td><td id="aW:G" class="">二班</td><td id="oXkd" class="">76.5</td></tr><tr id="20ac8552-f83b-8004-a3ba-ee110c0d3dfd"><td id="reij" class="">4</td><td id="&lt;O~U" class="">赵六</td><td id="aW:G" class="">二班</td><td id="oXkd" class="">95.0</td></tr><tr id="20ac8552-f83b-8089-bfdb-d8321e5bc2a9"><td id="reij" class="">5</td><td id="&lt;O~U" class="">胡七</td><td id="aW:G" class="">三班</td><td id="oXkd" class="">98.0</td></tr></tbody></table><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-8064-970c-ed9975e86b5c" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">UPDATE students
+SET class_name = &#x27;精英班&#x27;
+WHERE class_name = &#x27;二班&#x27;;</code></pre><table id="20ac8552-f83b-80ab-a8d3-d0f532512cdc" class="simple-table"><tbody><tr id="20ac8552-f83b-8025-ae4b-d2f21159b787"><td id="reij" class="">id</td><td id="&lt;O~U" class="">name</td><td id="aW:G" class="">class_name</td><td id="oXkd" class="">score</td></tr><tr id="20ac8552-f83b-8001-b880-d91b72fd4918"><td id="reij" class="">1</td><td id="&lt;O~U" class="">陈六</td><td id="aW:G" class="">一班</td><td id="oXkd" class="">85.5</td></tr><tr id="20ac8552-f83b-8090-ad77-ee9c4b2de221"><td id="reij" class="">2</td><td id="&lt;O~U" class="">李四</td><td id="aW:G" class="">一班</td><td id="oXkd" class="">98.5</td></tr><tr id="20ac8552-f83b-80a9-9cee-f5c39762aaf2"><td id="reij" class="">3</td><td id="&lt;O~U" class="">王五</td><td id="aW:G" class="">精英班</td><td id="oXkd" class="">76.5</td></tr><tr id="20ac8552-f83b-8077-972e-ca0d35e7e91b"><td id="reij" class="">4</td><td id="&lt;O~U" class="">赵六</td><td id="aW:G" class="">精英班</td><td id="oXkd" class="">95.0</td></tr><tr id="20ac8552-f83b-809c-bad0-df0da378fbe3"><td id="reij" class="">5</td><td id="&lt;O~U" class="">胡七</td><td id="aW:G" class="">三班</td><td id="oXkd" class="">98.0</td></tr></tbody></table><hr id="20ac8552-f83b-8082-9e24-e0ee2eac6f92"/><h3 id="20ac8552-f83b-80a2-8dd4-ead8aec89c09" class="">查找数据库中的表格</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-8087-86df-ea0f09d94f55" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">.table</code></pre><hr id="20ac8552-f83b-80dd-b587-f4025fc8f34c"/><h3 id="20ac8552-f83b-803a-8d40-ee9886ae5f02" class="">删除数据库中的表格</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-80f7-9266-d9a7ebba0d20" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">DROP TABLE IF EXISTS table_name;</code></pre><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="20ac8552-f83b-80f1-ac0c-cf07cde23f58"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><p id="20ac8552-f83b-80ff-a01f-f821794a7bc5" class="">使用此命令时要特别注意，一旦一个表被删除，表中所有信息也将永远丢失。</p></div></figure><hr id="20ac8552-f83b-801d-bddf-ffcc25372a4e"/><h3 id="20ac8552-f83b-809c-8d19-f6cc2947f3e1" class="">退出数据库并退出 SQLite</h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-80c9-856d-ca250f7335fa" class="code"><code class="language-SQL" style="white-space:pre-wrap;word-break:break-all">.exit</code></pre><hr id="20ac8552-f83b-8054-adc8-f768bda882f2"/><p id="20ac8552-f83b-80c0-821f-ceb54828292f" class="">
+</p><h1 id="20ac8552-f83b-801e-bddc-fb6ee02a1a46" class="">六、在 Java 中使用 SQLite 命令</h1><blockquote id="20ac8552-f83b-8035-ace9-fb2f0b513181" class="">马上就要完成了……</blockquote><p id="20ac8552-f83b-80ef-994c-fd00f8e70385" class="">
+</p><p id="20ac8552-f83b-80af-ab45-f1338b06b803" class="">以下是一个小小的测试用例。</p><p id="20ac8552-f83b-80b2-a078-ca3b34d7e340" class="">用于测试刚刚的驱动程序能否运行，以及如何在 Java 中使用 SQLite 命令：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-8065-be43-f25830868972" class="code"><code class="language-Java">/**
+ * 导入相关的包，以下这些基本上都是必要的。你还可以根据项目需求导入其它的包
+ */
+import java.sql.Connection;     // 用于建立与数据库的连接
+import java.sql.DriverManager;  // 用于管理JDBC驱动程序
+import java.sql.ResultSet;      // 用于存储查询结果
+import java.sql.Statement;      // 用于执行SQL语句
+
+/**
+ * SQLite 基础操作示例
+ */
+public class SQLiteSimple {
+    public static void main(String[] args) throws Exception {
+		    /***************** 0. 驱动注册 *****************/
+		    // 对于较旧版本的Java，通常需要注册驱动操作
+		    // 我们使用的Java版本较新，Java已经帮我们实现了自动注册
+        
+        /*1. 与数据库建立连接（打开SQLite，创建/打开数据库）*/
+        Connection conn = DriverManager.getConnection(&quot;jdbc:sqlite:simple.db&quot;);
+        System.out.println(&quot;数据库连接成功&quot;);
+        
+        /************ 2. 创建Statement对象 *************/
+        Statement stmt = conn.createStatement();
+        
+        /************ 3. 在数据库中创建一个表格 **********/
+        
+        // executeUpdate是Statement类的一个方法，用于执行数据库的更新操作。
+        stmt.executeUpdate(&quot;DROP TABLE IF EXISTS students&quot;);  // 如果该表格存在，先删除它
+        // 可以看到，在 Java 中都是以字符串的形式使用 SQLite 语句
+        // 与在终端中使用 SQLite 语句不同，每条语句的末尾不需要加分号，只保留Java本身的分号
+        
+        stmt.executeUpdate(&quot;CREATE TABLE IF NOT EXISTS students (
+											        id INTEGER PRIMARY KEY,
+											        name TEXT,
+											        score INTEGER
+											      )&quot;);
+        System.out.println(&quot;创建表格成功&quot;);
+        
+        /*************** 4. 增加表格数据 ***************/
+        stmt.executeUpdate(&quot;INSERT INTO students VALUES (1, &#x27;张三&#x27;, 95)&quot;);
+        stmt.executeUpdate(&quot;INSERT INTO students VALUES (2, &#x27;李四&#x27;, 88)&quot;);
+        stmt.executeUpdate(&quot;INSERT INTO students VALUES (3, &#x27;王五&#x27;, 73)&quot;);
+        System.out.println(&quot;插入数据成功&quot;);
+        
+        /*************** 5. 查询表格数据 ***************/
+        System.out.println(&quot;\n所有学生信息：&quot;);
+        
+        // executeQuery是Statement类的一个方法，用于执行数据库的查询操作。
+        ResultSet rs = stmt.executeQuery(&quot;SELECT * FROM students&quot;);  // 将查询到的结果传递给ResultSet
+        
+        // 可以将ResultSet视为一个完整表格，但这个表格只显示第一行
+        while (rs.next()) {  // 使用.next移动到下一行
+            int id = rs.getInt(&quot;id&quot;);  // 将get到的数据存储并打印
+            String name = rs.getString(&quot;name&quot;);
+            int score = rs.getInt(&quot;score&quot;);
+            System.out.println(id + &quot;\t&quot; + name + &quot;\t&quot; + score);
+        }
+        
+        /*************** 6. 更新表格数据 **************/
+        stmt.executeUpdate(&quot;UPDATE students SET score = 100 WHERE name = &#x27;张三&#x27;&quot;);
+        System.out.println(&quot;\n更新后的张三信息：&quot;);
+        rs = stmt.executeQuery(&quot;SELECT * FROM students WHERE name = &#x27;张三&#x27;&quot;);
+        while (rs.next()) {
+            System.out.println(rs.getInt(&quot;id&quot;) + &quot;\t&quot; + rs.getString(&quot;name&quot;) + &quot;\t&quot; + rs.getInt(&quot;score&quot;));
+        }
+        
+        /*************** 7. 删除表格数据 **************/        
+        stmt.executeUpdate(&quot;DELETE FROM students WHERE name = &#x27;王五&#x27;&quot;);
+        System.out.println(&quot;\n删除王五后的所有学生信息：&quot;);
+        rs = stmt.executeQuery(&quot;SELECT * FROM students&quot;);
+        while (rs.next()) {
+            System.out.println(rs.getInt(&quot;id&quot;) + &quot;\t&quot; + rs.getString(&quot;name&quot;) + &quot;\t&quot; + rs.getInt(&quot;score&quot;));
+        }
+        
+        /**************** 8. 关闭数据库 ***************/        
+        rs.close();
+        stmt.close();
+        conn.close();
+        System.out.println(&quot;\n数据库连接已关闭&quot;);
+    }
+} </code></pre><p id="20ac8552-f83b-804f-8e81-df84d0ec0c38" class="">
+</p><p id="20ac8552-f83b-807b-8575-f5031b99f8c1" class="">代码写完了，我们该如何运行这个程序？</p><p id="20ac8552-f83b-8082-aaa3-deb1a0fdc94b" class="">（VSCode）直接点击右上角运行按钮肯定是不行的，不信你试一下。</p><p id="20ac8552-f83b-80ba-a215-c7c5c949ce55" class="">
+</p><p id="20ac8552-f83b-80c5-9d7d-c48a9c27da8c" class="">以下提供两种运行方法：</p><ul id="20ac8552-f83b-80cf-91ce-fc8ca70a4e9b" class="toggle"><li><details open=""><summary>www我是一个新手😭…</summary><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="20ac8552-f83b-80ec-bef4-dc4051d8a830"><div style="width:100%"><p id="20ac8552-f83b-8016-8cb9-eee315e2498d" class=""><strong>对于 Java 新手，我们需要通过脚本来运行程序</strong></p><hr id="20ac8552-f83b-80f5-b56a-e8604fe8d0dc"/><ul id="20ac8552-f83b-80ea-8994-cfde91772855" class="bulleted-list"><li style="list-style-type:disc">如果你使用 Windows<p id="20ac8552-f83b-8032-a112-eb6b65c4622c" class="">在项目的根目录创建一个 .bat 文件，输入以下代码</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-804e-8909-e091e04d9028" class="code"><code class="language-PowerShell">@echo off
+java -cp .;lib\sqlite-jdbc-3.49.1.0.jar SQLiteSimple
+pause </code></pre><p id="20ac8552-f83b-8005-9918-ecbcf4fb04ff" class="">怎么运行脚本？<div class="indented"><p id="20ac8552-f83b-801e-9430-e6ba84f39731" class="">最简单的方法——双击.bat文件</p><p id="20ac8552-f83b-80cf-9eb5-d06017d69d6a" class="">通过终端运行</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-803d-90fc-c4fd5a063b89" class="code"><code class="language-PowerShell">.\run.bat</code></pre></div></p></li></ul><p id="20ac8552-f83b-80b1-a93a-eb010d64be82" class="">
+</p><ul id="20ac8552-f83b-8005-9f5a-fb9aad8ddcc0" class="bulleted-list"><li style="list-style-type:disc">如果你使用 macOS<p id="20ac8552-f83b-80f2-b756-d9121c62d456" class="">在项目的根目录创建一个 .sh 文件，输入以下代码：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-80d1-b803-f1d9a4a40c0e" class="code"><code class="language-Shell">#!/bin/sh
+java -cp .:lib/sqlite-jdbc-3.49.1.0.jar SQLiteSimple</code></pre><p id="20ac8552-f83b-80d1-857d-f0cb48c2a1ae" class="">在 shell 中执行脚本：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-80cc-a6f8-d469b84de262" class="code"><code class="language-Shell">chmod +x run.sh</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-80ab-9f66-e2194d9317b5" class="code"><code class="language-Shell">sh run.sh</code></pre></li></ul></div></figure><p id="20ac8552-f83b-8069-b674-c07bc2a11d36" class="">
+</p><p id="20ac8552-f83b-8016-bfc9-efa220ad3e8b" class="">
+</p></details></li></ul><ul id="20ac8552-f83b-8057-b291-c0ee68e20163" class="toggle"><li><details open=""><summary>瞧不起我？💢</summary><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="20ac8552-f83b-80e7-a7b0-da9a009b1b67"><div style="width:100%"><p id="20ac8552-f83b-8006-81cb-e7d423160c0e" class=""><strong>挑战自己？</strong></p><hr id="20ac8552-f83b-8002-91a0-e357e6d10907"/><p id="20ac8552-f83b-803b-a95b-c391abf9c516" class="">打包成 JAR 文件吧！</p></div></figure></details></li></ul><p id="20ac8552-f83b-8064-82bb-df0147746347" class="">
+</p><p id="20ac8552-f83b-80c8-acb0-da8dbb98e5a1" class="">运行成功后，控制台应该会输出以下内容：</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="20ac8552-f83b-80ab-9028-da5cf5304efd" class="code"><code class="language-Plain Text">数据库连接成功
+创建表成功
+插入数据成功
+
+所有学生信息：
+1       张三    95
+2       李四    88
+3       王五    73
+
+更新后的张三信息：
+1       张三    100
+
+删除王五后的所有学生信息：
+1       张三    100
+2       李四    88
+
+数据库连接已关闭</code></pre><p id="20ac8552-f83b-807b-a10e-de5125f44397" class="">
+</p><p id="20ac8552-f83b-8054-9d05-fa30c2085cf2" class="">最后解答一个疑惑：</p><blockquote id="20ac8552-f83b-80cd-befb-c16905c7ddb2" class="">如果我将整个项目拷贝到其它电脑（即使没有安装 SQLite 和 驱动），这个项目也可以运行吗？</blockquote><p id="20ac8552-f83b-8000-ae66-ecca39dcfeab" class="">答案是：<span style="border-bottom:0.05em solid">“Write Once, Run Anywhere”（一次编写，到处运行）。</span></p><p id="20ac8552-f83b-80a3-8d85-dbf335e5e777" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
