@@ -9,20 +9,24 @@
 ![](https://img.shields.io/github/repo-size/Royfor12/CQUT-Course-Guide-Sharing-Scheme.svg?style=flat)
 [![gh-proxy](https://img.shields.io/badge/CDN-gh_proxy-brightgreen?logo=github&logoSize=auto)](https://gh-proxy.com/)
 
-## ❗ 写在最前
+## 👉 [点击浏览](https://cqut.uednd.top)
 
-- 推荐使用本仓库的[前端网页](https://Royfor12.github.io/CQUT-Course-Guide-Sharing-Scheme)以获得更好的体验。所有资源都经加速处理，无需任何VPN/代理即可高速下载。
-- 如果你打开本网页不知如何操作或检索所需的资源，请先点击[GitHub使用指南](https://www.bilibili.com/video/BV1hS4y1S7wL)。  
-- 旧版备份[2025/1/7](https://pan.baidu.com/s/1_YFOqR_eSd8bXokEGMCrbg?pwd=hq33)提取码：hq33
+- 本仓库已更新前端网页，提供文件便捷预览与下载功能，由 [Repo-Viewer](https://github.com/UE-DND/Repo-Viewer) 支持。
+- 通常情况下无需代理即可流畅访问。若出现资源加载缓慢情况，启用代理即可。
+> 旧版备份 [2025/1/7](https://pan.baidu.com/s/1_YFOqR_eSd8bXokEGMCrbg?pwd=hq33) 【提取码：hq33】
 
 ## ⚡ 前言
 
 网络冲浪🏄时发现了：浙江大学的课程攻略共享计划与上海交通大学生存手册，深受震撼。  
-故此也想建立一个重庆理工大学课程攻略计划，本仓库的内容包括重庆理工大学的各类课程复习资料。本仓库为非营利、永久免费的开源项目，仓库之目的即推动知识传播、提高资源质量、减少获取成本、提倡无纸化资料、促进教育公平，让西唯兵学子在备考、复习之时不必再苦寻资料。
+
+故此也想建立一个重庆理工大学课程攻略计划，本仓库的内容包括重庆理工大学的各类课程复习资料。本仓库为非营利、永久免费的开源项目，仓库之目的即推动知识传播、提高资源质量、减少获取成本、提倡无纸化资料、促进教育公平，让西唯兵学子在备考、复习之时不必再苦寻资料。  
 
 我们同在重庆理工大学，以相同的身份，学习相同的课程，师从相同的教授。教授们往往为了省事，所以几年的课程资料、期末试题可能变化不大。学习这些资料，阅读学长学姐留下的复习攻略，可能会减轻信息不对称对你造成的影响，让你在复习时更有针对性。面对年复一年、无数学子独立摸索、重复劳动的现状，我不禁感到惋惜与不平。  
+
 再加之本人有数字仓鼠🐹症。  
+
 因此，我希望建立一个项目，将这些隐匿的、不确定性的、口耳相传的知识资源整合起来，使之变得公开透明、易于获取，并且能够由大家共同维护、持续丰富。  
+
 借用浙大的课程攻略中的一句话：**我希望只要是前人走过的弯路，后人就不必再走。这是我的信念，也是我建立这个项目的原因。**
 
 ## 📣 特性
@@ -40,12 +44,6 @@
 
 目前涵盖的科目还很少，欢迎各位前来PR！
 
-### 🎉 新界面
-
-本仓库已实现 GitHub Actions 工作流全自动部署。  
-在 Push 或 PR 后会触发自动构建新的静态网页并部署到 **https://Royfor12.github.io/CQUT-Course-Guide-Sharing-Scheme** 。  
-该网页界面友好，在左侧导航栏中可以查找并单独下载指定文件。
-
 ## 🦧 平台
 
 以下摘录自浙江大学课程攻略共享计划
@@ -55,14 +53,6 @@
 > - QQ 群大多为年级和专业所分隔，无法长期共同地保有；况且群文件也缺乏组织。
 > - GitHub 项目可以使用目录进行文件组织，并且每个目录均可以在显示文件列表的同时显示一个 README，十分适合本项目的需求。
 > - GitHub 带有便捷的 Issue 和 Pull Request 协作功能，并且可以方便地对贡献的质量进行监督和调整。
-
-## ⏬ 下载
-
-1. 你当然可以克隆或者下载整个项目，但因为整个项目较大，可能对于一部分人不太方便。这里对于使用Chrome和Firefox的用户，我们推荐一个[Chrome插件](https://chrome.google.com/webstore/detail/gitzip-for-github/ffabmkklhbepgcgfonabamgnfafbdlkn?hl=en)和[Firefox插件](https://addons.mozilla.org/en-US/firefox/addon/gitzip/)，**GitZip**。该插件可以让我们只下载项目中我们感兴趣的那些文件夹，也就是我们所感兴趣的课程的资料。同时对Opera用户来说，大部分的Chrome插件都可以通过一款名为[Install Chrome Extensions](https://addons.opera.com/zh-cn/extensions/details/install-chrome-extensions/)的Opera插件安装使用，GitZip也不例外。而对于使用其他浏览器的朋友来说，很遗憾，这个插件暂时只能在这三款浏览器中使用。
-2. 或者复制想要打包下载文件夹的网址，粘贴入[DownGit](https://minhaskamal.github.io/DownGit/#/home)中，选择**download**即可。
-3. 访问 **https://Royfor12.github.io/CQUT-Course-Guide-Sharing-Scheme** 。文件下载加速CDN由 [![gh-proxy](https://img.shields.io/badge/CDN-gh_proxy-brightgreen?logo=github&logoSize=auto)](https://gh-proxy.com/) 提供。
-
-注：对于第一种方法而言，它需要使用者拥有github账号，并且该插件需要使用者的授权；而第二种方法虽然一次只能下载一个文件夹，但它并不需要使用者拥有github账号。
 
 ## 🚛 贡献
 
