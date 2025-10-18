@@ -2,17 +2,18 @@
 
 # 💡 课程攻略共享计划
 
-[![](https://img.shields.io/github/watchers/Royfor12/CQUT-Course-Guide-Sharing-Scheme.svg?style=flat)](https://github.com/Royfor12/CQUT-Course-Guide-Sharing-Scheme/watchers)
-[![](https://img.shields.io/github/stars/Royfor12/CQUT-Course-Guide-Sharing-Scheme.svg?style=flat)](https://github.com/Royfor12/CQUT-Course-Guide-Sharing-Scheme/stargazers)
-[![](https://img.shields.io/github/forks/Royfor12/CQUT-Course-Guide-Sharing-Scheme.svg?style=flat)](https://github.com/Royfor12/CQUT-Course-Guide-Sharing-Scheme/forks)
-[![](https://img.shields.io/github/issues-pr-closed-raw/Royfor12/CQUT-Course-Guide-Sharing-Scheme.svg?style=flat)](https://github.com/Royfor12/CQUT-Course-Guide-Sharing-Scheme/pulls)
-![](https://img.shields.io/github/repo-size/Royfor12/CQUT-Course-Guide-Sharing-Scheme.svg?style=flat)
-[![gh-proxy](https://img.shields.io/badge/CDN-gh_proxy-brightgreen?logo=github&logoSize=auto)](https://gh-proxy.com/)
+[![Watchers](https://img.shields.io/github/watchers/Royfor12/CQUT-Course-Guide-Sharing-Scheme.svg?style=flat)](https://github.com/Royfor12/CQUT-Course-Guide-Sharing-Scheme/watchers)
+[![Stars](https://img.shields.io/github/stars/Royfor12/CQUT-Course-Guide-Sharing-Scheme.svg?style=flat)](https://github.com/Royfor12/CQUT-Course-Guide-Sharing-Scheme/stargazers)
+[![Forks](https://img.shields.io/github/forks/Royfor12/CQUT-Course-Guide-Sharing-Scheme.svg?style=flat)](https://github.com/Royfor12/CQUT-Course-Guide-Sharing-Scheme/forks)
+[![Pull Requests](https://img.shields.io/github/issues-pr-closed-raw/Royfor12/CQUT-Course-Guide-Sharing-Scheme.svg?style=flat)](https://github.com/Royfor12/CQUT-Course-Guide-Sharing-Scheme/pulls)
+![Repo Size](https://img.shields.io/github/repo-size/Royfor12/CQUT-Course-Guide-Sharing-Scheme.svg?style=flat)
 
-## 👉 [点击浏览](https://cqut.uednd.top)
+## 👉 [点击浏览仓库](https://cqut.uednd.top)
 
-- 本仓库已更新前端网页，提供文件便捷预览与下载功能，由 [Repo-Viewer](https://github.com/UE-DND/Repo-Viewer) 支持。
+- 本仓库已更新前端网页，由 [Repo-Viewer](https://github.com/UE-DND/Repo-Viewer) 提供文件便捷预览与下载功能。CDN加速由 [enhanced-FaaS-in-China](https://github.com/xingpingcn/enhanced-FaaS-in-China) 支持。
+
 - 通常情况下无需代理即可流畅访问。若出现资源加载缓慢情况，启用代理即可。
+
 > 旧版备份 [2025/1/7](https://pan.baidu.com/s/1_YFOqR_eSd8bXokEGMCrbg?pwd=hq33) 【提取码：hq33】
 
 ## ⚡ 前言
@@ -161,17 +162,17 @@ Issue、PR、纠错、补充、上传攻略，完全欢迎！
 - [影梭-无需ROOT的虚拟定位APP](https://github.com/ZCShou/GoGoGo)
 
 ## 📔待办事项
+
 - [ ] 制定使用指南
 - [x] 设计一个网页便于检索与预览
 
 ## 🍻赞助
+
 Buy me coffee.
 
 ## ✨ 鸣谢
 
-<a href="https://github.com/Royfor12/CQUT-Course-Guide-Sharing-Scheme/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Royfor12/CQUT-Course-Guide-Sharing-Scheme"/>
-</a>
+[![Contributors](https://contrib.rocks/image?repo=Royfor12/CQUT-Course-Guide-Sharing-Scheme)](https://github.com/Royfor12/CQUT-Course-Guide-Sharing-Scheme/graphs/contributors)
 
 ## ✨Stars
 
