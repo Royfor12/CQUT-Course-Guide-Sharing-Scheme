@@ -12,7 +12,7 @@
 
 - 本仓库已更新前端网页，由 [Repo-Viewer](https://github.com/UE-DND/Repo-Viewer) 提供文件便捷预览与下载功能。CDN加速由 [enhanced-FaaS-in-China](https://github.com/xingpingcn/enhanced-FaaS-in-China) 支持。
 
-- 通常情况下无需代理即可流畅访问。若出现资源加载缓慢情况，启用代理即可。
+- 通常情况下无需代理即可流畅访问。若出现资源加载缓慢情况，尝试启用蜂窝数据，或启用代理。
 
 > 旧版备份 [2025/1/7](https://pan.baidu.com/s/1_YFOqR_eSd8bXokEGMCrbg?pwd=hq33) 【提取码：hq33】
 
