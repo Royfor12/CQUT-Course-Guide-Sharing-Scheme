@@ -1,0 +1,699 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>《计算机科学概论》期末速通指南</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.highlight-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(248, 248, 247, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(248, 243, 252, 1);
+}
+.block-color-pink_background {
+	background: rgba(252, 241, 246, 1);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: undefined; }
+.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+.select-value-color-transparentGray { background-color: undefined; }
+.select-value-color-translucentGray { background-color: undefined; }
+.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1cac8552-f83b-80a1-9789-cd49791e21f8" class="page mono"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_william_morris_1877_willow.jpg" style="object-position:center 90%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">📗</span></div><h1 class="page-title">《计算机科学概论》期末速通指南</h1><p class="page-description"></p></header><div class="page-body"><blockquote id="1cac8552-f83b-800a-bf8f-f514aef559be" class="">本文档为个人整理，必然会有疏漏或错误的内容，请仔细甄别。<p id="1cac8552-f83b-80b2-8b0a-cf4cde748435" class=""><mark class="highlight-default"><mark class="highlight-yellow_background">高亮内容</mark></mark>仅为考试<strong>可能</strong>的重点，并不代表必考。</p></blockquote><p id="1cac8552-f83b-802c-84a1-c354d1a197b5" class="">
+</p><h1 id="1cac8552-f83b-801f-a86a-dc9bc2d652b5" class=""><strong>一、「 计算工具的发展简史 」</strong></h1><hr id="1cac8552-f83b-8045-8643-f0a8e9a4b82e"/><h3 id="1cac8552-f83b-8030-a2e0-e776536b3f08" class="">1. 世界上第一台大型电子计算机是<mark class="highlight-yellow_background">ENIAC</mark>，发明于1946年，使用电子管。</h3><h3 id="1cac8552-f83b-800e-800c-ca4c64ea97df" class="">2. 各代计算机使用的主要器件</h3><ol type="1" id="1cac8552-f83b-80cd-83dc-d19409ab73a3" class="numbered-list" start="1"><li>第一代计算机——电子管</li></ol><ol type="1" id="1cac8552-f83b-8017-ba48-eae8fd336750" class="numbered-list" start="2"><li>第二代计算机——晶体管</li></ol><ol type="1" id="1cac8552-f83b-80cd-b05b-cc8fdb95dbe8" class="numbered-list" start="3"><li>第三代计算机——集成电路</li></ol><ol type="1" id="1cac8552-f83b-802b-bc0e-d8e6faa0be2e" class="numbered-list" start="4"><li>第四代计算机——大规模和超大规模集成电路</li></ol><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1cac8552-f83b-801d-b526-ff079e8a48ff"><div style="font-size:1.5em"><span class="icon">📖</span></div><div style="width:100%"><p id="1cac8552-f83b-807b-acb9-e5760e3ef767" class="">集成电路是将大量的晶体管和电子线路组合在一块硅片上，故又称芯片</p></div></figure><h3 id="1cac8552-f83b-8025-adc4-ec69ba305141" class=""><mark class="highlight-yellow_background">3. 冯·诺依曼体系结构</mark></h3><ol type="a" id="1cac8552-f83b-806d-a008-c96eda8bef3b" class="numbered-list" start="1"><li>控制单元 (Control Unit)：<p id="1cac8552-f83b-8079-82ed-c49c011c7f93" class="">负责解释和执行存储在内存中的指令，并控制其他组件的操作。</p></li></ol><ol type="a" id="1cac8552-f83b-80ed-9de1-fdeaa809f82f" class="numbered-list" start="2"><li>算术逻辑单元 (ALU)：<p id="1cac8552-f83b-80d0-b072-dbc8e34b69ab" class="">负责执行算术运算（如加法、减法）和逻辑运算（如比较大小、与或非操作）。</p></li></ol><ol type="a" id="1cac8552-f83b-80fe-86d7-f434220a5b36" class="numbered-list" start="3"><li>存储器 (Memory)：<p id="1cac8552-f83b-808d-abb7-e3fc5d25e08d" class="">用于存储数据和程序。在冯·诺依曼架构中，内存中同时存储指令和数据。</p></li></ol><ol type="a" id="1cac8552-f83b-8027-a608-e9b27be7b645" class="numbered-list" start="4"><li>输入设备 (Input Devices)：<p id="1cac8552-f83b-8016-92d4-d914eee90ed3" class="">用于向计算机输入数据或指令，例如键盘、鼠标等。</p></li></ol><ol type="a" id="1cac8552-f83b-802e-bab5-c989bc44aee9" class="numbered-list" start="5"><li>输出设备 (Output Devices)：<p id="1cac8552-f83b-8008-b316-c97cfd8796dd" class="">用于将计算结果或信息输出到外部设备，例如显示器、打印机等。</p></li></ol><p id="1cac8552-f83b-807b-974c-f1b35d34b021" class="">
+</p><p id="1cac8552-f83b-800a-9c60-d23871ecb075" class="">
+</p><h1 id="1cac8552-f83b-8081-844a-fd8301f7539a" class=""><mark class="highlight-yellow_background"><strong>二、「 计算机学科的根本问题 」</strong></mark></h1><hr id="1cac8552-f83b-80c9-a25e-eba7c88a33f7"/><h3 id="1cac8552-f83b-805d-9ff5-e78d352e5a47" class="">1. 可计算问题与不可计算问题</h3><h3 id="1cac8552-f83b-80d3-af6f-e489d5001640" class="">2. NP问题与NP完全问题</h3><ul id="1cac8552-f83b-80a6-9075-fbfb2325ddce" class="bulleted-list"><li style="list-style-type:disc">可以在多项式时间内验证的问题看作NP问题。</li></ul><ul id="1cac8552-f83b-8018-8299-fbfc6c899edf" class="bulleted-list"><li style="list-style-type:disc">可以在多项式时间内得到验证，但不知道是否可以在多项式时间内得到求解或不能证明问题中的其中一个，称为NP完全问题。</li></ul><p id="1cac8552-f83b-8081-b857-f9a88c2f6d35" class="">
+</p><h1 id="1cac8552-f83b-80e0-a7e4-f7627a5aedf4" class=""><strong>三、「 认识计算机的运算基础 」</strong></h1><hr id="1cac8552-f83b-8041-bca7-cd80ac74c149"/><h3 id="1cac8552-f83b-8081-ba76-e6c977ac55bd" class=""><mark class="highlight-yellow_background">1. 计算机采用二进制的原因</mark></h3><ul id="1cac8552-f83b-807d-842d-c9a047e00244" class="bulleted-list"><li style="list-style-type:disc">硬件实现简单</li></ul><ul id="1cac8552-f83b-8013-8d11-d42f5ca2fac3" class="bulleted-list"><li style="list-style-type:disc">可靠性高,不容易受到干扰</li></ul><ul id="1cac8552-f83b-805f-930d-e1770670e2d2" class="bulleted-list"><li style="list-style-type:disc">逻辑运算简便</li></ul><ul id="1cac8552-f83b-8017-9869-c42741153b98" class="bulleted-list"><li style="list-style-type:disc">存储效率高</li></ul><h3 id="1cac8552-f83b-8010-b8bc-e2c3a2347ea3" class="">2. 进位计数制</h3><ul id="1cac8552-f83b-80fc-ac88-da8e7d9fb575" class="bulleted-list"><li style="list-style-type:disc">不同的进制以基数来区分，若以 r 代表基数，则<p id="1cac8552-f83b-8089-886a-e171d8269687" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">r = 10 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">10</span></span></span></span></span><span>﻿</span></span> 为十进制，可使用0，1，2，……，9共10个数码；</p><p id="1cac8552-f83b-80b3-84bf-ee745763b1b7" class=""><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">r = 2 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span></span><span>﻿</span></span> 为二进制，可使用0，1共2个数码；</p><p id="1cac8552-f83b-8094-848e-e05d0e3f95f7" class="">······</p></li></ul><ul id="1cac8552-f83b-805b-9007-d0957fbf702e" class="bulleted-list"><li style="list-style-type:disc">进位计数制采用位置计数法表示数</li></ul><ul id="1cac8552-f83b-8072-b4d0-c829d0e505de" class="bulleted-list"><li style="list-style-type:disc">位权值：<p id="1cac8552-f83b-8087-9369-d28b2a7b0046" class="">对于r进制数，</p><p id="1cac8552-f83b-8024-9e3b-e81d27a5085c" class="">小数点左边的权位值依次为 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mn>0</mn><mtext>，</mtext><mi>r</mi><mn>1</mn><mtext>，</mtext><mo>…</mo><mtext>，</mtext><mi>r</mi><mi>N</mi></mrow><annotation encoding="application/x-tex">r0 ，r1，… ，rN </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord">0</span><span class="mord cjk_fallback">，</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord">1</span><span class="mord cjk_fallback">，</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord cjk_fallback">，</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span></span><span>﻿</span></span></p><p id="1cac8552-f83b-801e-ab1d-f3abca26fc52" class="">小数点右边的权位值依次为 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>−</mo><mn>1</mn><mtext>，</mtext><mi>r</mi><mo>−</mo><mn>2</mn><mtext>，</mtext><mo>…</mo><mtext>，</mtext><mi>r</mi><mo>−</mo><mi>M</mi></mrow><annotation encoding="application/x-tex">   r-1，r - 2，… ，r - M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mord cjk_fallback">，</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord">2</span><span class="mord cjk_fallback">，</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord cjk_fallback">，</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span></span><span>﻿</span></span> </p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1cac8552-f83b-8005-9605-fd778c16d4e4"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="1cac8552-f83b-80d6-b232-c62fcf35b1c0" class="">例如，十进制数198.63可以表示成：</p></div></figure><figure id="1cac8552-f83b-8080-aa04-d5b0b5d73f23" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>⁍</mtext></mrow><annotation encoding="application/x-tex">⁍</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0em;"></span><span class="mord">⁍</span></span></span></span></span></div></figure></li></ul><h3 id="1cac8552-f83b-804d-9309-db484b1b5537" class=""><mark class="highlight-yellow_background">3. 进制转换</mark></h3><ul id="1cac8552-f83b-80dc-9b55-e0e5917aac33" class="toggle"><li><details open=""><summary>二进制与十进制</summary><ul id="1cac8552-f83b-8001-ae13-e7fec12c8a94" class="bulleted-list"><li style="list-style-type:disc">二进制转十进制：<span style="border-bottom:0.05em solid">将二进制数按位权值展开，再进行求和。</span><ul id="1cac8552-f83b-805d-a5d6-f25126e7a56c" class="bulleted-list"><li style="list-style-type:circle">位权值展开后为以下结构<figure id="1cac8552-f83b-801a-9e52-e0ee2cdd5220" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="normal">_</mi><mi mathvariant="normal">_</mi><mo>×</mo><mi mathvariant="normal">_</mi><msup><mi mathvariant="normal">_</mi><mi>m</mi></msup><mo>+</mo><mi mathvariant="normal">_</mi><mi mathvariant="normal">_</mi><mo>×</mo><mi mathvariant="normal">_</mi><msup><mi mathvariant="normal">_</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>+</mo><mo>…</mo><mo>+</mo><mi mathvariant="normal">_</mi><mi mathvariant="normal">_</mi><mo>×</mo><mi mathvariant="normal">_</mi><msup><mi mathvariant="normal">_</mi><mn>0</mn></msup><mo>+</mo><mi mathvariant="normal">_</mi><mi mathvariant="normal">_</mi><mo>×</mo><mi mathvariant="normal">_</mi><msup><mi mathvariant="normal">_</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo>+</mo><mo>…</mo><mo>+</mo><mi mathvariant="normal">_</mi><mi mathvariant="normal">_</mi><mo>×</mo><mi mathvariant="normal">_</mi><msup><mi mathvariant="normal">_</mi><mrow><mo>−</mo><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\_\_ \times \_\_^{m} + \_\_ \times \_\_^{m-1} + \ldots + \_\_ \times \_\_^{0} + \_\_ \times \_\_^{-1} + \ldots + \_\_ \times \_\_^{-n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8933em;vertical-align:-0.31em;"></span><span class="mord" style="margin-right:0.02778em;">__</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0244em;vertical-align:-0.31em;"></span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord"><span class="mord" style="margin-right:0.02778em;">_</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8933em;vertical-align:-0.31em;"></span><span class="mord" style="margin-right:0.02778em;">__</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1741em;vertical-align:-0.31em;"></span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord"><span class="mord" style="margin-right:0.02778em;">_</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8933em;vertical-align:-0.31em;"></span><span class="mord" style="margin-right:0.02778em;">__</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1741em;vertical-align:-0.31em;"></span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord"><span class="mord" style="margin-right:0.02778em;">_</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8933em;vertical-align:-0.31em;"></span><span class="mord" style="margin-right:0.02778em;">__</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1741em;vertical-align:-0.31em;"></span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord"><span class="mord" style="margin-right:0.02778em;">_</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8933em;vertical-align:-0.31em;"></span><span class="mord" style="margin-right:0.02778em;">__</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1313em;vertical-align:-0.31em;"></span><span class="mord" style="margin-right:0.02778em;">_</span><span class="mord"><span class="mord" style="margin-right:0.02778em;">_</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8213em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span></span></div></figure><p id="1cac8552-f83b-80f2-9a6d-c34727a3f0c8" class="">将要展开的数各个位依次放在乘号左边，乘号右边的数字为要展开的数的进制。</p><p id="1cac8552-f83b-80bb-b68c-eda4b45a36b9" class="">上标 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>=</mo></mrow><annotation encoding="application/x-tex">m = </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span></span></span></span></span><span>﻿</span></span> 小数点前位数<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex"> -1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">1</span></span></span></span></span><span>﻿</span></span>；<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo></mrow><annotation encoding="application/x-tex">n = </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span></span></span></span></span><span>﻿</span></span> 小数点后位数。</p><figure id="1cac8552-f83b-8027-a9f3-d6a8f3a9c11a" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mn>1101.11</mn><mo>=</mo><mn>1</mn><mo>×</mo><msup><mn>2</mn><mn>3</mn></msup><mo>+</mo><mn>1</mn><mo>×</mo><msup><mn>2</mn><mn>2</mn></msup><mo>+</mo><mn>0</mn><mo>×</mo><msup><mn>2</mn><mn>1</mn></msup><mo>+</mo><mn>1</mn><mo>×</mo><msup><mn>2</mn><mn>0</mn></msup><mo>+</mo><mn>1</mn><mo>×</mo><msup><mn>2</mn><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo>+</mo><mn>1</mn><mo>×</mo><msup><mn>2</mn><mrow><mo>−</mo><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1101.11 = 1 \times 2^3 + 1 \times 2^2 + 0 \times 2^1 + 1 \times 2^0 + 1 \times 2^{-1} + 1 \times 2^{-2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1101.11</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9474em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9474em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9474em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9474em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9474em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8641em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span></span></div></figure></li></ul></li></ul><ul id="1cac8552-f83b-806c-81a9-fbf02635bffb" class="bulleted-list"><li style="list-style-type:disc">十进制转二进制：<span style="border-bottom:0.05em solid">将十进制分解为整数部分和小数部分，对两部分分别进行转换，然后相加得到结果。</span><ul id="1cac8552-f83b-8055-b2d5-dd0a5a46df77" class="toggle"><li><details open=""><summary>整数部分</summary><p id="1cac8552-f83b-808b-bc7c-df2e0cb14087" class="">转换的规则为：</p><p id="1cac8552-f83b-80e2-bb92-dd98201ebd56" class="">1️⃣ 对十进制数使用短除法（除以二进制的基数 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span></span><span>﻿</span></span>），将商数继续短除直至不能再除。</p><p id="1cac8552-f83b-80bd-b4e9-d460d1e56203" class="">2️⃣ 将所有短除后的余数，作为二进制的结果并逆序排列，即为转换后的二进制数。</p><p id="1cac8552-f83b-8042-b771-c302d192f32a" class="">例如，将十进制整数 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>46</mn></mrow><annotation encoding="application/x-tex"> 46</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">46</span></span></span></span></span><span>﻿</span></span> 转换为二进制整数：</p><table id="1cac8552-f83b-80ae-9577-cf9d48835eda" class="simple-table"><thead class="simple-table-header"><tr id="1cac8552-f83b-800f-b720-e5b4ec1f4fe6"><th id="DF|U" class="simple-table-header-color simple-table-header" style="width:314.3333333333333px">除数</th><th id="p\~A" class="simple-table-header-color simple-table-header" style="width:314.3333333333333px">商</th><th id="RRCH" class="simple-table-header-color simple-table-header" style="width:314.3333333333333px">余数</th></tr></thead><tbody><tr id="1cac8552-f83b-80d6-a328-d06eb028c58a"><td id="DF|U" class="" style="width:314.3333333333333px">46</td><td id="p\~A" class="" style="width:314.3333333333333px">23</td><td id="RRCH" class="" style="width:314.3333333333333px">0</td></tr><tr id="1cac8552-f83b-80f5-9f44-c8181e818062"><td id="DF|U" class="" style="width:314.3333333333333px">23</td><td id="p\~A" class="" style="width:314.3333333333333px">11</td><td id="RRCH" class="" style="width:314.3333333333333px">1</td></tr><tr id="1cac8552-f83b-8051-a7d3-d99a4b610e28"><td id="DF|U" class="" style="width:314.3333333333333px">11</td><td id="p\~A" class="" style="width:314.3333333333333px">5</td><td id="RRCH" class="" style="width:314.3333333333333px">1</td></tr><tr id="1cac8552-f83b-802b-9ab8-d212286b0d8d"><td id="DF|U" class="" style="width:314.3333333333333px">5</td><td id="p\~A" class="" style="width:314.3333333333333px">2</td><td id="RRCH" class="" style="width:314.3333333333333px">1</td></tr><tr id="1cac8552-f83b-80ac-88e2-d2be0935cc6d"><td id="DF|U" class="" style="width:314.3333333333333px">2</td><td id="p\~A" class="" style="width:314.3333333333333px">1</td><td id="RRCH" class="" style="width:314.3333333333333px">0</td></tr><tr id="1cac8552-f83b-802b-ae91-fc536f00006f"><td id="DF|U" class="" style="width:314.3333333333333px">1</td><td id="p\~A" class="" style="width:314.3333333333333px">0</td><td id="RRCH" class="" style="width:314.3333333333333px">1</td></tr></tbody></table><p id="1cac8552-f83b-807e-a564-ccb9a458a610" class="">转换后结果为 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>101110</mn></mrow><annotation encoding="application/x-tex">101110 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">101110</span></span></span></span></span><span>﻿</span></span>，注意是<mark class="highlight-yellow_background"><strong>逆序排列</strong></mark>。</p></details></li></ul><ul id="1cac8552-f83b-80cf-961e-f0861ca8fd28" class="toggle"><li><details open=""><summary>小数部分</summary><p id="1cac8552-f83b-80a2-a375-eac18641c218" class="">转换的规则为：</p><p id="1cac8552-f83b-8000-a30b-edede86740bf" class="">1️⃣ 将十进制小数乘以二进制的基数 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span></span><span>﻿</span></span>，然后将得到的积的小数点前的数（0或1）作为二进制的结果，并正序排列，直到积的小数部分为0。</p><p id="1cac8552-f83b-8055-885f-d21230402df5" class="">例如，将十进制小数 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.375</mn></mrow><annotation encoding="application/x-tex"> 0.375 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.375</span></span></span></span></span><span>﻿</span></span> 转换为二进制小数：</p><table id="1cac8552-f83b-8057-a2a0-f46e478ceff6" class="simple-table"><thead class="simple-table-header"><tr id="1cac8552-f83b-8048-b66d-f870b6ee5256"><th id="k=no" class="simple-table-header-color simple-table-header" style="width:314.3333333333333px">乘数</th><th id="WkvC" class="simple-table-header-color simple-table-header" style="width:314.3333333333333px">积</th><th id="czc_" class="simple-table-header-color simple-table-header" style="width:314.3333333333333px">整数</th></tr></thead><tbody><tr id="1cac8552-f83b-80cf-b2d1-c56380efa4d0"><td id="k=no" class="" style="width:314.3333333333333px">0.375</td><td id="WkvC" class="" style="width:314.3333333333333px">0.75</td><td id="czc_" class="" style="width:314.3333333333333px">0</td></tr><tr id="1cac8552-f83b-8013-a6d0-fc4776d4a5a7"><td id="k=no" class="" style="width:314.3333333333333px">0.75</td><td id="WkvC" class="" style="width:314.3333333333333px">1.5</td><td id="czc_" class="" style="width:314.3333333333333px">1</td></tr><tr id="1cac8552-f83b-802a-8e0b-c3ffaeef5cc6"><td id="k=no" class="" style="width:314.3333333333333px">0.5</td><td id="WkvC" class="" style="width:314.3333333333333px">1.0</td><td id="czc_" class="" style="width:314.3333333333333px">1</td></tr></tbody></table><p id="1cac8552-f83b-8047-99ed-f319c5978378" class="">转换后结果为 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.011</mn></mrow><annotation encoding="application/x-tex">0.011 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0.011</span></span></span></span></span><span>﻿</span></span>，注意是<mark class="highlight-yellow_background"><strong>正序排列</strong></mark>。</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1cac8552-f83b-8005-b08f-f628d44dc33d"><div style="font-size:1.5em"><span class="icon">📖</span></div><div style="width:100%"><p id="1cac8552-f83b-8014-92c5-cf744df7af7c" class="">并不是所有十进制小数都可以精确转换为二进制小数。如果积的小数部分始终不为 0，则可以根据精度要求舍弃。</p></div></figure></details></li></ul></li></ul></details></li></ul><ul id="1cac8552-f83b-8048-a604-c95d9bf44d62" class="toggle"><li><details open=""><summary>二进制与八进制</summary><ul id="1cac8552-f83b-8082-bf7b-e84b346c14c0" class="bulleted-list"><li style="list-style-type:disc">二进制转八进制：<span style="border-bottom:0.05em solid">将二进制分解为整数部分和小数部分，对两部分分别进行转换，然后相加得到结果。</span><ul id="1cac8552-f83b-80b4-ac75-c8b1c8fdfbcc" class="toggle"><li><details open=""><summary>整数部分</summary><p id="1cac8552-f83b-8001-983c-ca373ed0096b" class="">转换的规则为：</p><p id="1cac8552-f83b-8033-82ae-e14ebfffeb04" class="">1️⃣ 从右向左，每三位一组进行分组。</p><p id="1cac8552-f83b-8033-87c0-ce36ca669d8b" class="">2️⃣ 如果最左边不足三位，可以在左边补零。</p><p id="1cac8552-f83b-808d-8245-db213493d4dd" class="">3️⃣ 将每组三位二进制数转换为对应的八进制数字，方法与二进制转十进制相同。</p></details></li></ul><ul id="1cac8552-f83b-80ac-b9ab-ed51e3657205" class="toggle"><li><details open=""><summary>小数部分</summary><p id="1cac8552-f83b-8009-82cc-cf56538742bb" class="">转换的规则为：</p><p id="1cac8552-f83b-80f4-9033-ee87de0b595f" class="">1️⃣ 从左向右，每三位一组进行分组。</p><p id="1cac8552-f83b-8073-9fd9-c460e8ecc33d" class="">2️⃣ 如果最右边不足三位，可以在右边补零。</p><p id="1cac8552-f83b-808f-be70-d34f1a8cc8c0" class="">3️⃣ 将每组三位二进制数转换为对应的八进制数字，方法与二进制转十进制相同。</p></details></li></ul></li></ul><ul id="1cac8552-f83b-801a-810a-d667ed216ef8" class="bulleted-list"><li style="list-style-type:disc">八进制转二进制：<span style="border-bottom:0.05em solid">八进制的每一位可以直接转换为三位二进制数，方法与十进制转二进制相同（短除）。</span></li></ul></details></li></ul><ul id="1cac8552-f83b-80c8-bc31-ea6559158137" class="toggle"><li><details open=""><summary>二进制与十六进制</summary><ul id="1cac8552-f83b-8075-ad79-c2a0c8d65bfe" class="bulleted-list"><li style="list-style-type:disc">二进制转十六进制：与以上转换类似，不同的是每四位一组进行分组。</li></ul></details></li></ul><h3 id="1cac8552-f83b-805b-bac5-e58dac8b99a0" class="">4. 信息的编码</h3><ul id="1cac8552-f83b-80eb-9595-f9dd6ebed664" class="bulleted-list"><li style="list-style-type:disc">整数的编码<ul id="1cac8552-f83b-80e7-a1b0-eb2904880975" class="bulleted-list"><li style="list-style-type:circle">计算机中同一类型的数据具有相同的长度，与数据的实际长度无关。<p id="1cac8552-f83b-8003-b6a7-f28e45956990" class="">假设某计算机系统中整数占2字节（即16位二进制），则所有整数的长度都是16位。</p></li></ul><ul id="1cac8552-f83b-80b8-a56c-d74248adfdf0" class="bulleted-list"><li style="list-style-type:circle">在计算机二进制数的表示中，<strong>原码、反码和补码</strong>是表示有符号整数的三种方式。<p id="1cac8552-f83b-801a-9cad-da0899340a2e" class="">它们主要用于处理正负数的表示。</p><ul id="1cac8552-f83b-80ea-9056-f67cc98b55ed" class="toggle"><li><details open=""><summary>原码：最简单的有符号数表示方法。使用二进制的最高位（最左边第一位）表示符号，其余位表示数值大小。</summary><p id="1cac8552-f83b-80df-9360-d8cfb9946ce1" class="">规则：<br/>符号位：最高位（最左边位）表示符号，0 表示正数，1 表示负数。<br/>数值部分：其余位表示该数的绝对值。<br/></p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1cac8552-f83b-80dc-a834-d83f181a926a"><div style="font-size:1.5em"><span class="icon">📖</span></div><div style="width:100%"><p id="1cac8552-f83b-800a-93f6-fca53f825ac9" class="">+5 的 8 位原码表示：0000 0101（符号位是 0，表示正数，后面的数值是5）<br/> -5 的 8 位原码表示：1000 0101（符号位是 1，表示负数，后面的数值是5）<br/></p></div></figure></details></li></ul><ul id="1cac8552-f83b-805b-b059-c95791212c2e" class="toggle"><li><details open=""><summary>反码</summary><p id="1cac8552-f83b-80a4-833a-f509a245f36c" class="">规则：<br/>正数的反码与原码相同。<br/>负数的反码：符号位不变，<br/><strong><span style="border-bottom:0.05em solid">数值部分（并非符号位）</span></strong>按位取反（ 0 变 1，1 变0 ）。</p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1cac8552-f83b-8098-9fb2-cbd1a782a39e"><div style="font-size:1.5em"><span class="icon">📖</span></div><div style="width:100%"><p id="1cac8552-f83b-800e-802d-e1fa9ad19f8a" class="">+5 的 8 位反码表示：0000 0101（正数的反码和原码同）<br/> -5 的 8 位反码表示：1111 1010（符号位不变，其余位按位反）<br/></p></div></figure></details></li></ul><ul id="1cac8552-f83b-8066-ae67-c8d737cc50ea" class="toggle"><li><details open=""><summary>补码</summary><p id="1cac8552-f83b-8044-bf26-f0b2966f4cab" class="">规则：<br/>正数的补码与原码相同。<br/>负数的补码：将负数的原码的<br/><strong><span style="border-bottom:0.05em solid">数值部分（并非符号位）</span></strong>按位取反，然后加 1（即：补码  =  反码  + 1）。<br/>补码转原码步骤相同（反码  + 1），不要反向操作，容易混淆。<br/></p><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1cac8552-f83b-8080-b9ee-c4cb9d02e216"><div style="font-size:1.5em"><span class="icon">📖</span></div><div style="width:100%"><p id="1cac8552-f83b-8062-8488-d453b813a289" class="">+5 的 8 位补码表示：0000 0101<br/> -5 的 8 位补码表示：<br/>先求原码：1000 0101<br/>再求反码：1111 1010<br/> 最后加 1：1111 1011<br/>因此，-5 的 8 位补码为：1111 1011<br/></p></div></figure><p id="1cac8552-f83b-8074-a233-ee7ade85bb7e" class="">补码的优点是表示0的方式唯一，且方便进行算术运算。</p></details></li></ul></li></ul></li></ul><ul id="1cac8552-f83b-80fd-97b0-e39e8c6e4865" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">浮点数的编码</mark><p id="1cac8552-f83b-8052-8b6c-db1a949508ca" class="">浮点数：在日常生活中， 对于很大的数或很小的数， 必须用科学计数法来表示。小数点位置不固定， 称为浮点数。</p><ul id="1cac8552-f83b-807b-a82a-ed3a1b596143" class="bulleted-list"><li style="list-style-type:circle">IEEE754 标准表示法 （一种广泛使用的浮点数运算标准，也称<strong>余127码</strong>）<br/>以单精度格式为例，共用32位二进制来存储一个浮点数。<br/>其中，符号位占1位，阶码指数占8位，尾数占23位（无符号数）。<br/><figure id="1cac8552-f83b-802f-8ed1-e0082e96b99b" class="image"><a href="image-0.png"><img style="width:528px" src="image-0.png"/></a></figure><ul id="1cac8552-f83b-8038-814b-c46eb55fb391" class="toggle"><li><details open=""><summary>tips:</summary><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1cac8552-f83b-8009-a9af-e670829155a5"><div style="font-size:1.5em"><span class="icon">📖</span></div><div style="width:100%"><p id="1cac8552-f83b-80ea-a60f-d1a0551367f3" class="">双精度浮点数：使用64位二进制数表示，1位符号位，11位指数位，52位尾数位。</p><p id="1cac8552-f83b-808b-94ad-d34720bdc4e0" class="">单精度浮点数：使用32位二进制数表示，1位符号位，8位指数位，23位尾数位。</p></div></figure></details></li></ul></li></ul><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1cac8552-f83b-804b-b949-f3909044174d"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="1cac8552-f83b-8042-a4fb-e10bdd75ed42" class="">用 IEEE754 标准表示十进制实数 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>58.0</mn></mrow><annotation encoding="application/x-tex">58.0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">58.0</span></span></span></span></span><span>﻿</span></span> ：</p><p id="1cac8552-f83b-801c-9f26-f473f045d2c2" class="">① <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>58.0</mn></mrow><annotation encoding="application/x-tex">58.0 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">58.0</span></span></span></span></span><span>﻿</span></span>是整数，因此符号位 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi></mrow><annotation encoding="application/x-tex">S </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span></span><span>﻿</span></span>为 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></span><span>﻿</span></span><br/>② 将 <br/><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>58.0</mn></mrow><annotation encoding="application/x-tex">58.0 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">58.0</span></span></span></span></span><span>﻿</span></span> 写成二进制形式：<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>111010.0</mn></mrow><annotation encoding="application/x-tex">111010.0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">111010.0</span></span></span></span></span><span>﻿</span></span><br/>③ 将二进制形式写成科学计数法形式：<br/><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1.110100</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">1.110100 × 10^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1.110100</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span></span><span>﻿</span></span><br/>④ 计算阶码 <br/><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>=</mo><mn>5</mn><mo>+</mo><mn>127</mn><mo>=</mo><mn>132</mn></mrow><annotation encoding="application/x-tex"> E = 5 + 127 = 132</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">127</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">132</span></span></span></span></span><span>﻿</span></span>，阶码E的二进制形式为 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10000100</mn></mrow><annotation encoding="application/x-tex">10000100</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">10000100</span></span></span></span></span><span>﻿</span></span>，填入阶码 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span></span></span></span></span><span>﻿</span></span> 中<br/>⑤ 计算尾数 <br/><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>=</mo><mn>1.110100</mn></mrow><annotation encoding="application/x-tex">M = 1.110100</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1.110100</span></span></span></span></span><span>﻿</span></span>，将小数点后的二进制数 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>110100</mn></mrow><annotation encoding="application/x-tex"> 110100</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">110100</span></span></span></span></span><span>﻿</span></span> 填入尾数 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex">M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span></span><span>﻿</span></span> 中，<br/>注意，此时的尾数 <br/><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex"> M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span></span><span>﻿</span></span> 是规格化的，规格化的尾数的最高位为 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></span><span>﻿</span></span> ，因此舍去最高位的 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></span><span>﻿</span></span> ，得到 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>110100</mn></mrow><annotation encoding="application/x-tex">110100</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">110100</span></span></span></span></span><span>﻿</span></span> 填入尾数 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi></mrow><annotation encoding="application/x-tex">M</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span></span></span></span></span><span>﻿</span></span> 中，其余位用 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></span><span>﻿</span></span> 补齐。</p><figure id="1cac8552-f83b-804a-a3d5-c0afa2678814" class="image"><a href="image-0.png"><img style="width:528px" src="image-1.png"/></a></figure></div></figure></li></ul><ul id="1cac8552-f83b-80c2-85ed-f799645325e5" class="bulleted-list"><li style="list-style-type:disc">字符的编码<ul id="1cac8552-f83b-8005-ba6f-feac2e28246e" class="bulleted-list"><li style="list-style-type:circle">标准ASCII码：<mark class="highlight-yellow_background">大写字母转小写字母，ASCII码 + 32</mark>。</li></ul><ul id="1cac8552-f83b-80a5-b8c2-c650e0bbf746" class="bulleted-list"><li style="list-style-type:circle">汉字的编码</li></ul></li></ul><ul id="1cac8552-f83b-8050-8122-f8e7e1fa1f69" class="bulleted-list"><li style="list-style-type:disc">图形和图像的编码<figure id="1cac8552-f83b-803c-abb4-c6ba008011ed" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>存储量</mtext><mo stretchy="false">(</mo><mtext>字节</mtext><mo stretchy="false">)</mo><mo>=</mo><mtext>图像宽度</mtext><mo stretchy="false">(</mo><mtext>像素</mtext><mo stretchy="false">)</mo><mo>×</mo><mtext>图像高度</mtext><mo stretchy="false">(</mo><mtext>像素</mtext><mo stretchy="false">)</mo><mo>×</mo><mtext>采样位数</mtext><mo stretchy="false">(</mo><mtext>位</mtext><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mn>8</mn><mtext>。</mtext></mrow><annotation encoding="application/x-tex">存储量(字节) = 图像宽度(像素)× 图像高度(像素)× 采样位数(位)/8。</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord cjk_fallback">存储量</span><span class="mopen">(</span><span class="mord cjk_fallback">字节</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord cjk_fallback">图像宽度</span><span class="mopen">(</span><span class="mord cjk_fallback">像素</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord cjk_fallback">图像高度</span><span class="mopen">(</span><span class="mord cjk_fallback">像素</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord cjk_fallback">采样位数</span><span class="mopen">(</span><span class="mord cjk_fallback">位</span><span class="mclose">)</span><span class="mord">/8</span><span class="mord cjk_fallback">。</span></span></span></span></span></div></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1cac8552-f83b-804e-a689-c22b32f682e8"><div style="font-size:1.5em"><span class="icon">📖</span></div><div style="width:100%"><p id="1cac8552-f83b-80c8-ac82-cb7e2a69d580" class="">在 RGB 颜色模式下，每个像素由红(R)、绿(G)、蓝(B)三个颜色通道组成</p><p id="1cac8552-f83b-8062-ae0e-d0cd07a33ea0" class="">每个通道的颜色深度通常为 8 位，所以总的颜色深度为 24 位（8 位  × 3）</p></div></figure></li></ul><ul id="1cac8552-f83b-8013-b0da-c3cd3e7011b1" class="bulleted-list"><li style="list-style-type:disc">声音的编码</li></ul><figure id="1cac8552-f83b-808d-a019-f9ad043c3d36" class="equation"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><div class="equation-container"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>存储量</mtext><mo stretchy="false">(</mo><mtext>字节</mtext><mo stretchy="false">)</mo><mo>=</mo><mtext>采样率</mtext><mo stretchy="false">(</mo><mi>H</mi><mi>z</mi><mo stretchy="false">)</mo><mo>×</mo><mtext>采样位数</mtext><mo stretchy="false">(</mo><mtext>位</mtext><mo stretchy="false">)</mo><mo>×</mo><mtext>声道数</mtext><mo>×</mo><mtext>时间</mtext><mo stretchy="false">(</mo><mtext>秒</mtext><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mn>8</mn><mtext>。</mtext></mrow><annotation encoding="application/x-tex">存储量(字节)= 采样率(Hz)× 采样位数(位)× 声道数 × 时间(秒)/8。</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord cjk_fallback">存储量</span><span class="mopen">(</span><span class="mord cjk_fallback">字节</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord cjk_fallback">采样率</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.04398em;">Hz</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord cjk_fallback">采样位数</span><span class="mopen">(</span><span class="mord cjk_fallback">位</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord cjk_fallback">声道数</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord cjk_fallback">时间</span><span class="mopen">(</span><span class="mord cjk_fallback">秒</span><span class="mclose">)</span><span class="mord">/8</span><span class="mord cjk_fallback">。</span></span></span></span></span></div></figure><ul id="1cac8552-f83b-8071-8e93-c92858701b51" class="toggle"><li><details open=""><summary><mark class="highlight-yellow_background">数据溢出</mark></summary><p id="1cac8552-f83b-80e8-a493-c25f653f9bb9" class="">原因是要表示的数值，超过了系统能够表示的范围。</p><ul id="1cac8552-f83b-8024-b84c-f2904dd8fd67" class="bulleted-list"><li style="list-style-type:disc">用补码方式表示n位带符号整数时，表示范围为 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mtext>～</mtext><msup><mn>2</mn><mrow><mi>n</mi><mo>−</mo><mn>1</mn></mrow></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex"> -2^{n-1} ～ 2^{n-1} - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mord cjk_fallback">～</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span></span><span>﻿</span></span>。因此在计算加减法时，需要注意可能会出现的数据溢出情况。</li></ul><ul id="1cac8552-f83b-808e-b27d-eee53f646cdd" class="bulleted-list"><li style="list-style-type:disc">先将两个数直接相加，若结果超出了n位带符号整数的表示范围，则溢出。</li></ul><ul id="1cac8552-f83b-80d1-b545-cfa1e5f2c210" class="bulleted-list"><li style="list-style-type:disc">溢出后结果的简单计算方法（适用于溢出范围不大的情况）：<p id="1cac8552-f83b-80f2-969b-d7b513ca3539" class="">正溢出的计算：<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>a</mi><mn>1</mn><mo>+</mo><mi>a</mi><mn>2</mn><mo stretchy="false">)</mo><mo>−</mo><mn>256</mn><mo>=</mo><mi>r</mi><mi>e</mi><mi>s</mi><mi>u</mi><mi>l</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">(a1 + a2) - 256 = result </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">256</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">res</span><span class="mord mathnormal">u</span><span class="mord mathnormal">lt</span></span></span></span></span><span>﻿</span></span> 再将 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>e</mi><mi>s</mi><mi>u</mi><mi>l</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">result</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">res</span><span class="mord mathnormal">u</span><span class="mord mathnormal">lt</span></span></span></span></span><span>﻿</span></span> 转换进制</p><p id="1cac8552-f83b-80cd-a7ad-ce641cf85684" class="">负溢出的计算：<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>a</mi><mn>1</mn><mo>+</mo><mi>a</mi><mn>2</mn><mo stretchy="false">)</mo><mo>+</mo><mn>256</mn><mo>=</mo><mi>r</mi><mi>e</mi><mi>s</mi><mi>u</mi><mi>l</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">(a1 + a2) + 256 = result </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">256</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">res</span><span class="mord mathnormal">u</span><span class="mord mathnormal">lt</span></span></span></span></span><span>﻿</span></span> 再将 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>e</mi><mi>s</mi><mi>u</mi><mi>l</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">result</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">res</span><span class="mord mathnormal">u</span><span class="mord mathnormal">lt</span></span></span></span></span><span>﻿</span></span> 转换进制</p></li></ul></details></li></ul><h3 id="1cac8552-f83b-80b6-bfb0-cd44174928a8" class="">5. 逻辑电路</h3><ul id="1cac8552-f83b-80e8-98e2-f52b2bad3400" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">门电路（基本）</mark><ul id="1cac8552-f83b-806c-8db5-d874be7e909b" class="bulleted-list"><li style="list-style-type:circle">与门：输入 A 和 B 同时为1，输出为1，否则为0。</li></ul><ul id="1cac8552-f83b-808e-a6f4-c35807e26d28" class="bulleted-list"><li style="list-style-type:circle">或门：输入 A 和 B 中只要有一个为1，输出为1，否则为0。</li></ul><ul id="1cac8552-f83b-8037-af35-cb38bd6ce0ec" class="bulleted-list"><li style="list-style-type:circle">非门：输入A为1，输出为0，输入A为0，输出为1。</li></ul><ul id="1cac8552-f83b-8018-b378-df51075f8d75" class="bulleted-list"><li style="list-style-type:circle">异或门：输入A和B相同，输出为0，输入A和B不同，输出为1。</li></ul><ul id="1cac8552-f83b-80d9-81a4-d5851460580b" class="bulleted-list"><li style="list-style-type:circle">与非门：先对两个输入进行与运算（输入A和B同时为1，输出为1，否则为0），然后将其结果取反。</li></ul><ul id="1cac8552-f83b-80ff-a6db-e8c68ed44777" class="bulleted-list"><li style="list-style-type:circle">或非门：先对两个输入进行或运算（输入A和B中只要有一个为1，输出为1，否则为0），然后对结果取反。</li></ul></li></ul><ul id="1cac8552-f83b-805e-8ac7-c91e6ac3cc88" class="toggle"><li><details open=""><summary>组合电路</summary><ul id="1cac8552-f83b-8091-b2ca-d6c57059828d" class="bulleted-list"><li style="list-style-type:disc">半加器</li></ul><ul id="1cac8552-f83b-8086-971c-f848419d8d29" class="bulleted-list"><li style="list-style-type:disc">全加器：考虑进位输入的加法电路</li></ul><ul id="1cac8552-f83b-8028-b20d-cb4f9039769e" class="bulleted-list"><li style="list-style-type:disc">时序电路<ul id="1cac8552-f83b-80c7-979c-efd89f6113b8" class="bulleted-list"><li style="list-style-type:circle">S-R锁存器</li></ul></li></ul></details></li></ul><h3 id="1cac8552-f83b-808e-8c09-c9b7eeb4bc5d" class="">6. 计算机部件</h3><ul id="1cac8552-f83b-8009-bba7-eba83416b8d7" class="bulleted-list"><li style="list-style-type:disc">存储器<ul id="1cac8552-f83b-80a5-84d2-f2687901b79a" class="toggle"><li><details open=""><summary>地址空间： 所有在存储器中标识的独立的地址单元的总称。</summary><p id="1cac8552-f83b-80c4-92f8-f4618603527e" class=""><mark class="highlight-yellow_background">地址空间的计算</mark>：如果计算机内存有 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span></span><span>﻿</span></span> 个字的存储空间，那就需要有 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><mi>g</mi><mn>2</mn><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">log2(N)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord">2</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span></span></span></span><span>﻿</span></span> 位的二进制无符号整数来确定一个存储单元。</p></details></li></ul><ul id="1cac8552-f83b-80ad-be27-e6db02cb3d17" class="bulleted-list"><li style="list-style-type:circle">内存储器<ul id="1cac8552-f83b-8006-8ffe-c928eaff5c35" class="bulleted-list"><li style="list-style-type:square">只读存储器ROM(Read only memory)，又称非易失性存储器。</li></ul><ul id="1cac8552-f83b-8053-bd3b-edaaea33bc20" class="bulleted-list"><li style="list-style-type:square">随机存储器RAM(Random access memory)，又称易失性存储器。<figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1cac8552-f83b-802c-82c7-c49f7ed83274"><div style="font-size:1.5em"><span class="icon">📖</span></div><div style="width:100%"><p id="1cac8552-f83b-8006-ba43-f35382d37891" class="">RAM 又分为静态随机存储器(SRAM) 和 动态随机存储器(DRAM)</p></div></figure></li></ul></li></ul><ul id="1cac8552-f83b-80d8-8d89-eb3d03255cfe" class="bulleted-list"><li style="list-style-type:circle">高速缓冲存储器(Cache)，简称缓存：介于内存和CPU之间。位置可以在CPU芯片的内部， 也可以在CPU芯片的外部。<figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1cac8552-f83b-808a-b9c7-d02b23a263db"><div style="font-size:1.5em"><span class="icon">📖</span></div><div style="width:100%"><p id="1cac8552-f83b-809d-b582-dd0b4bb8ea2e" class=""><mark class="highlight-yellow_background">CPU缓存的类型为 SRAM</mark></p></div></figure></li></ul></li></ul><ul id="1cac8552-f83b-80e5-ab66-ed998e81d7bf" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-yellow_background">CPU的构成</mark><ul id="1cac8552-f83b-804e-8234-c7d09023e51b" class="bulleted-list"><li style="list-style-type:circle">总线</li></ul><ul id="1cac8552-f83b-8041-998e-df1517bdc3ca" class="bulleted-list"><li style="list-style-type:circle">运算器(ALU)：主要由算术逻辑运算部件和寄存器组成。</li></ul><ul id="1cac8552-f83b-8070-9bc4-c81fb7e954e6" class="bulleted-list"><li style="list-style-type:circle">控制器<ul id="1cac8552-f83b-80dd-b14b-fa3b7c126107" class="bulleted-list"><li style="list-style-type:square">程序计数器(ProgramCounter)：存放下一条要执行的指令的地址。</li></ul><ul id="1cac8552-f83b-80c6-ae2c-dbdc4828c1cd" class="bulleted-list"><li style="list-style-type:square">指令寄存器(IR)：存放当前正在执行的指令。</li></ul><ul id="1cac8552-f83b-80a9-9074-e8a09897e65d" class="bulleted-list"><li style="list-style-type:square">指令译码器(ID)：对当前指令进行翻译。</li></ul><ul id="1cac8552-f83b-80aa-8b64-f5a746d5a261" class="bulleted-list"><li style="list-style-type:square">时序控制电路：提供计算机运行时间的节拍。</li></ul><ul id="1cac8552-f83b-80f1-b536-c3ffd26a12fc" class="bulleted-list"><li style="list-style-type:square">微操作控制电路：产生各种控制信号。</li></ul></li></ul></li></ul><ul id="1cac8552-f83b-80a0-ada5-f4f9c77ba0a7" class="bulleted-list"><li style="list-style-type:disc">程序的执行过程<ul id="1cac8552-f83b-80a2-b453-d56b68cc8a01" class="bulleted-list"><li style="list-style-type:circle">指令：分为 操作码 和 操作数 两部分。<figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1cac8552-f83b-80fa-af28-e6b33b62438d"><div style="font-size:1.5em"><span class="icon">⚠️</span></div><div style="width:100%"><p id="1cac8552-f83b-809c-9c92-e9edd0b59f32" class="">注意，以下部分内容仅供通过期末考试，不一定符合实际情况。</p></div></figure><ul id="1cac8552-f83b-808f-a7e2-f82b0d57ae95" class="bulleted-list"><li style="list-style-type:square">指令编码的头部为操作码，中间的数为寄存器编号，最后的数为存储单元编号。</li></ul><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1cac8552-f83b-8002-867d-d2acc7edfe84"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="1cac8552-f83b-8031-bbc3-c86b82ffd9ba" class="">举例：（仅演示各个位置的含义，操作码具体功能题目应该会给）<br/>指令编码 156A，1 代表取出并装入操作，5 代表（要）装入的寄存器编号，6A代表（要）取出的存储单元编号；<br/>指令编码 306E，3 代表存放操作，0 代表（要）取出的寄存器编号，6E代表（要）存放的存储单元编号。<br/></p></div></figure></li></ul></li></ul><p id="1cac8552-f83b-8035-a809-d72b50ce16b2" class="">
+</p><p id="1cac8552-f83b-8050-b6c7-ceabecdda5c4" class="">
+</p><h1 id="1cac8552-f83b-8067-b631-fcbb7c2dc6e7" class="">四、「 问题求解与程序设计 」</h1><hr id="1cac8552-f83b-80db-be51-e097824a658c"/><h3 id="1cac8552-f83b-80b0-9f17-dc3cc4a25a04" class="">1. 数据结构</h3><ul id="1cac8552-f83b-803f-b4d9-fd1ec8519c7f" class="bulleted-list"><li style="list-style-type:disc">主要的数据类型<ul id="1cac8552-f83b-80e8-a2a6-f2d648852e1a" class="bulleted-list"><li style="list-style-type:circle">栈（抽象为一个容器，要想取出底部的东西，先把顶部的东西拿出来）<p id="1cac8552-f83b-80ce-b4d8-ee71ead433a8" class="">栈的插入操作称为入栈，栈的删除操作称为出栈。不含任何数据元素的栈称为空栈。</p><p id="1cac8552-f83b-80e0-8773-c557d3f9237f" class=""><mark class="highlight-yellow_background">特点：先进后出，后进先出</mark></p></li></ul><ul id="1cac8552-f83b-8000-9fac-c8cc5821e362" class="bulleted-list"><li style="list-style-type:circle">队列（抽象为一根管子，一端只能插入数据，另一端只能取出数据）<p id="1cac8552-f83b-8043-84ee-d48dc48a311c" class=""><mark class="highlight-yellow_background">特点：先进先出，后进后出（要排队）</mark></p></li></ul><ul id="1cac8552-f83b-8039-8159-f78bc50e59c0" class="bulleted-list"><li style="list-style-type:circle">二叉树<figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1cac8552-f83b-801c-802d-d2ff80b3c5be"><div style="font-size:1.5em"><span class="icon">📖</span></div><div style="width:100%"><p id="1cac8552-f83b-80d7-9a90-cc65db30d0cb" class="">二叉树的遍历，以下图为例：</p><figure id="1cac8552-f83b-801a-a9aa-c5aa5e2427d6" class="image"><a href="image-3.png"><img style="width:288px" src="image-3.png"/></a></figure><p id="1cac8552-f83b-80f4-bd94-eeee3a4d04ac" class="">前序遍历：ABCDEF<br/>中序遍历：CBDAEF<br/>后序遍历：CDBFEA<br/></p><p id="1cac8552-f83b-80a5-a997-e3981e7b12f0" class="">这里的“序”指的都是B的顺序：若为前序，则B的位置在最前面；若为中序，则B的位置在中间；若为后序，则B的位置在最后面。</p></div></figure><p id="1cac8552-f83b-8090-87e6-cd8e3cb1c48f" class="">
+</p></li></ul></li></ul><h3 id="1cac8552-f83b-806c-b041-d873152962f3" class="">2. 算法(Algorithm)</h3><ul id="1cac8552-f83b-80a5-9e97-dddbd7c342d6" class="bulleted-list"><li style="list-style-type:disc">算法是对特定问题求解步骤的一种描述，是<mark class="highlight-yellow_background">指令的有限序列</mark>。</li></ul><ul id="1cac8552-f83b-8082-bf78-d7fd566bf20e" class="toggle"><li><details open=""><summary><mark class="highlight-yellow_background">算法的特性</mark></summary><ul id="1cac8552-f83b-80ae-aeae-e4beffe548da" class="bulleted-list"><li style="list-style-type:disc">输入：一个算法有 0 个或多个输入</li></ul><ul id="1cac8552-f83b-8016-9583-c6c3b64dd0bd" class="bulleted-list"><li style="list-style-type:disc">输入：一个算法有 0 个或多个输入</li></ul><ul id="1cac8552-f83b-80be-b756-e5155cb97f7d" class="bulleted-list"><li style="list-style-type:disc">有穷性：一个算法必须在执行有限的步骤之后结束</li></ul><ul id="1cac8552-f83b-80d0-a18c-f3a5e936802b" class="bulleted-list"><li style="list-style-type:disc">确定性：算法的每一步骤都必须有确切的定义，对于相同的输入只能有相同的输出</li></ul><ul id="1cac8552-f83b-803d-b4d6-cf36ffb48d65" class="bulleted-list"><li style="list-style-type:disc">可行性：算法的每一步骤都必须是可行的，也就是说，每一步骤都能够通过执行有限次数完成</li></ul></details></li></ul><ul id="1cac8552-f83b-80fd-8a31-fbd39075e925" class="toggle"><li><details open=""><summary>程序语言</summary><ul id="1cac8552-f83b-8026-a2ba-d3de959c3941" class="bulleted-list"><li style="list-style-type:disc">程序设计语言的发展<ul id="1cac8552-f83b-8006-8671-dba426c9e8d2" class="bulleted-list"><li style="list-style-type:circle">第一代程序设计语言——机器语言<p id="1cac8552-f83b-803d-86fb-ca060b805107" class="">缺点：难以阅读和理解。</p></li></ul><ul id="1cac8552-f83b-800f-ac83-f5d27ccdbcd9" class="bulleted-list"><li style="list-style-type:circle">第二代程序设计语言——汇编语言<p id="1cac8552-f83b-8077-965d-e1dc1e50dfc8" class="">缺点：不同机器的汇编指令不同，程序不能移植。</p></li></ul><ul id="1cac8552-f83b-805d-89f2-e9be2d520cb4" class="bulleted-list"><li style="list-style-type:circle">第三代程序设计语言——高级语言</li></ul></li></ul></details></li></ul><p id="1cac8552-f83b-80ee-a4b3-fd3dff539951" class="">
+</p><p id="1cac8552-f83b-8065-9069-c4f088f9b8ee" class="">
+</p><h1 id="1cac8552-f83b-80fc-a419-d3e19b47ec81" class="">五、「 操作系统 」</h1><hr id="1cac8552-f83b-8047-8238-de378095edc6"/><h3 id="1cac8552-f83b-80ee-b6b3-def2d671c886" class=""><mark class="highlight-yellow_background">1. 操作系统的定义</mark></h3><ul id="1cac8552-f83b-8058-8974-df6df24a14e1" class="bulleted-list"><li style="list-style-type:disc">一个程序集合，是系统软件的核心。</li></ul><h3 id="1cac8552-f83b-803b-8d3e-d39f3159bb6d" class="">2. 操作系统的特征</h3><ul id="1cac8552-f83b-805a-bd2c-c6e5ce7b5465" class="bulleted-list"><li style="list-style-type:disc">并发性</li></ul><ul id="1cac8552-f83b-80cd-8b64-e680c815373b" class="bulleted-list"><li style="list-style-type:disc">共享性</li></ul><ul id="1cac8552-f83b-80a9-8005-c6f319d1efe2" class="bulleted-list"><li style="list-style-type:disc">虚拟性</li></ul><ul id="1cac8552-f83b-807d-b9a8-c673a4125b16" class="bulleted-list"><li style="list-style-type:disc">不确定性</li></ul><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1cac8552-f83b-806b-a1e1-dad6728904c9"><div style="font-size:1.5em"><span class="icon">📖</span></div><div style="width:100%"><p id="1cac8552-f83b-8025-9c59-d2a138eb214b" class=""><mark class="highlight-yellow_background">并发性和共享性是操作系统的最基本特征</mark></p></div></figure><h3 id="1cac8552-f83b-8088-b51e-fe001ff6cd20" class="">3. 操作系统的工作方式</h3><ul id="1cac8552-f83b-80c0-9028-ffe9dee1572c" class="bulleted-list"><li style="list-style-type:disc">中断——唤醒操作系统的唯一方式。</li></ul><h3 id="1cac8552-f83b-80e0-8f3b-efd40ffeebd6" class="">4. 内存管理</h3><ul id="1cac8552-f83b-80be-a39b-d203cf61f268" class="bulleted-list"><li style="list-style-type:disc">划分内存的方法有两种：<mark class="highlight-yellow_background">固定分区法 和 动态分区法</mark></li></ul><p id="1cac8552-f83b-804a-a77e-f2817079a177" class="">
+</p><p id="1cac8552-f83b-803c-9023-e12f72cb37d1" class="">
+</p><h1 id="1cac8552-f83b-8017-9124-e977dfd6c778" class="">六、「 应用软件 」</h1><hr id="1cac8552-f83b-80cf-a339-ec85700f1114"/><h3 id="1cac8552-f83b-80c4-9cfc-f098211ba9cc" class="">1. 软件工程</h3><ul id="1cac8552-f83b-80cf-af84-eb9fdc94b96d" class="toggle"><li><details open=""><summary>软件测试</summary><ul id="1cac8552-f83b-800a-bdeb-eeb4d97c4857" class="bulleted-list"><li style="list-style-type:disc">白盒测试：也称为结构测试， 主要用于检测软件编码过程中的错误。</li></ul><ul id="1cac8552-f83b-80fe-aea7-e52aea8f0688" class="bulleted-list"><li style="list-style-type:disc">黑盒测试：也称为功能测试，主要检测软件的每一个功能是否能够正常使用。 </li></ul></details></li></ul><p id="1cac8552-f83b-80e1-ba7f-c6f3a5f71aa5" class="">
+</p><p id="1cac8552-f83b-80bc-bbec-f9b05b80e0d2" class="">
+</p><h1 id="1cac8552-f83b-8052-aa19-c57ed6b8ce83" class="">七、「 计算机通讯与网络 」</h1><hr id="1cac8552-f83b-80bf-a5e7-e7136f3e1899"/><h3 id="1cac8552-f83b-8034-966d-cdc7107d45e1" class="">1. 计算机通信</h3><ul id="1cac8552-f83b-8088-b734-e46e78b79eb7" class="bulleted-list"><li style="list-style-type:disc">信号分成两大类：数字信号和模拟信号。<ul id="1cac8552-f83b-809a-82b3-edbcfc04423a" class="bulleted-list"><li style="list-style-type:circle">数字信号是一系列的脉冲，脉冲的状态只有两种，例如高电平和低电平。 </li></ul><ul id="1cac8552-f83b-80ae-b2e8-e7e5d47b3e32" class="bulleted-list"><li style="list-style-type:circle">模拟信号是一种连续变化的波，基本特征是频率和振幅。</li></ul></li></ul><ul id="1cac8552-f83b-8051-b150-d3a5302640ee" class="bulleted-list"><li style="list-style-type:disc">调制与解调<ul id="1cac8552-f83b-8032-a51f-cc9223304c74" class="bulleted-list"><li style="list-style-type:circle">把数字信号转换为模拟信号称为调制；把模拟信号转换为数字信号称为解调。</li></ul><ul id="1cac8552-f83b-8057-a92d-dcf375c8f810" class="bulleted-list"><li style="list-style-type:circle">完成调制和解调的设备叫做调制解调器， 也称为Modem（光猫）。</li></ul></li></ul><h3 id="1cac8552-f83b-80c2-8e76-f45195a725c9" class="">2. 计算机网络</h3><ul id="1cac8552-f83b-8056-bbf4-f297bca8200a" class="bulleted-list"><li style="list-style-type:disc">TCP/IP协议集<ul id="1cac8552-f83b-8089-89fe-f30c2e155297" class="bulleted-list"><li style="list-style-type:circle">应用层</li></ul><ul id="1cac8552-f83b-8033-83e1-d8470df2e9c0" class="bulleted-list"><li style="list-style-type:circle">传输层</li></ul><ul id="1cac8552-f83b-803c-baa7-f530958f3ac2" class="bulleted-list"><li style="list-style-type:circle">网络层</li></ul><ul id="1cac8552-f83b-805e-bf43-f316314564bd" class="bulleted-list"><li style="list-style-type:circle">物理层</li></ul></li></ul><ul id="1cac8552-f83b-8040-a737-e065c4486058" class="bulleted-list"><li style="list-style-type:disc">IP地址的构成<ul id="1cac8552-f83b-80a1-bed3-c281ac285731" class="bulleted-list"><li style="list-style-type:circle">网络号：用于识别网络地址</li></ul><ul id="1cac8552-f83b-80d1-8575-f1577d828ce5" class="bulleted-list"><li style="list-style-type:circle">主机号：用于识别同一网络内的具体设备或主机</li></ul><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1cac8552-f83b-8057-9d28-c7300609a420"><div style="font-size:1.5em"><span class="icon">💡</span></div><div style="width:100%"><p id="1cac8552-f83b-80aa-984c-fd6f213fad14" class="">一串IP地址的总长度 32 位（即 4 字节）</p><p id="1cac8552-f83b-80c3-a8bd-c7e1cfb95673" class="">IP地址分为 4 个部分，每部分有 4 个十进制数字，每个数字代表 8 位二进制的值，<mark class="highlight-yellow_background">每个十进制数字的范围是 0 到 255</mark></p></div></figure><figure class="block-color-gray_background callout" style="white-space:pre-wrap;display:flex" id="1cac8552-f83b-8092-ac15-d41fe437bb77"><div style="font-size:1.5em"><span class="icon">📖</span></div><div style="width:100%"><p id="1cac8552-f83b-8047-9873-ca8419858b68" class="">IPv6 的优点：</p><ul id="1cac8552-f83b-80c1-91d0-e19841c17209" class="bulleted-list"><li style="list-style-type:disc">提供更多地址空间</li></ul><ul id="1cac8552-f83b-8016-961e-e4b0e96e8a5f" class="bulleted-list"><li style="list-style-type:disc">提供更强大的安全性</li></ul><ul id="1cac8552-f83b-80f4-8728-da4d32e9b707" class="bulleted-list"><li style="list-style-type:disc">传输速度更快</li></ul></div></figure></li></ul><ul id="1cac8552-f83b-80b6-b375-cd7e76e277da" class="bulleted-list"><li style="list-style-type:disc">统一资源定位器(URL)<ul id="1cac8552-f83b-8067-8d1e-d11daa5d6669" class="bulleted-list"><li style="list-style-type:circle"> URL协议<ul id="1cac8552-f83b-8070-8d77-e9cf234a7628" class="bulleted-list"><li style="list-style-type:square">FTP 文件传输协议</li></ul><ul id="1cac8552-f83b-800a-86ea-f37a74ed5c30" class="bulleted-list"><li style="list-style-type:square">HTTP 超文本传输协议</li></ul><ul id="1cac8552-f83b-804c-9aa0-d682c04cc735" class="bulleted-list"><li style="list-style-type:square">USENET 网络信息服务</li></ul></li></ul></li></ul><p id="1cac8552-f83b-80b0-9208-d69610fb9b03" class="">
+</p><p id="1cac8552-f83b-805c-b2fa-fdd2c9510467" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
