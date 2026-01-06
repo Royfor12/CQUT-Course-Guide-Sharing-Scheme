@@ -1,0 +1,23 @@
+name: Repo Viewer Search Index
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: {}
+
+jobs:
+  generate-index:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@main
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Generate Repo Viewer search index
+        uses: H-Sofie/Repo-Viewer-Search@main
+        with:
+          branches: main

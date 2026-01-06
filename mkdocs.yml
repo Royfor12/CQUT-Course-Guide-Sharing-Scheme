@@ -1,0 +1,48 @@
+site_name: 重庆理工大学课程攻略共享计划
+site_author: H·Sofie, Royfor12
+site_description: 使用 MKDocs 构建的静态网页
+site_url: https://Royfor12.github.io/CQUT-Course-Guide-Sharing-Scheme
+repo_url: https://github.com/Royfor12/CQUT-Course-Guide-Sharing-Scheme
+
+theme:
+  name: material
+  language: zh
+  font:
+    text: Noto Sans Simplified Chinese
+  features:
+    - navigation.instant # 即时加载
+    - navigation.instant.prefetch # 即时预取
+    - navigation.instant.progress # 加载进度指示器
+    - navigation.instant.preview # 即时预览
+    - navigation.sections # 导航栏分组
+    - navigation.path # 标题导航路径
+    - navigation.top # 返回顶部按钮
+    - toc.follow # 目录锚点跟随
+    - search.highlight # 搜索高亮显示
+    - content.footnote.tooltips # 脚注内联
+
+plugins:
+  - search:
+      lang: zh
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - pymdownx.betterem
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js

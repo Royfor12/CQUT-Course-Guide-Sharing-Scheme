@@ -8,10 +8,14 @@
 [![Pull Requests](https://img.shields.io/github/issues-pr-closed-raw/Royfor12/CQUT-Course-Guide-Sharing-Scheme.svg?style=flat)](https://github.com/Royfor12/CQUT-Course-Guide-Sharing-Scheme/pulls)
 ![Repo Size](https://img.shields.io/github/repo-size/Royfor12/CQUT-Course-Guide-Sharing-Scheme.svg?style=flat)
 
-## 👉 [点击浏览仓库](https://cqut.uednd.top)
+## 👉 快捷浏览仓库
 
-- 本仓库已更新前端网页，由 [Repo-Viewer](https://github.com/UE-DND/Repo-Viewer) 提供文件便捷预览与下载功能。CDN加速由 [enhanced-FaaS-in-China](https://github.com/xingpingcn/enhanced-FaaS-in-China) 支持。
+由于 GitHub 在国内直连访问的稳定性和速度欠佳，因此我们提供了以下加速站便于高速访问和下载所需的资源和文件：
 
+- 🔗 [站点一](https://cqut.uednd.top)  
+    由 [Repo-Viewer](https://github.com/UE-DND/Repo-Viewer) 提供文件便捷预览与下载功能。CDN加速由 [enhanced-FaaS-in-China](https://github.com/xingpingcn/enhanced-FaaS-in-China) 支持。特别感谢 [@UE-DND](https://github.com/UE-DND)。
+- 🔗 [站点二](https://royfor12.github.io/CQUT-Course-Guide-Sharing-Scheme/)  
+    由 MKDocs 自动构建的静态网页，CDN 加速由 [gh-proxy](https://gh-proxy.com/) 支持。
 - 通常情况下无需代理即可流畅访问。若出现资源加载缓慢情况，尝试启用蜂窝数据，或启用代理。
 
 > 旧版备份 [2025/1/7](https://pan.baidu.com/s/1_YFOqR_eSd8bXokEGMCrbg?pwd=hq33) 【提取码：hq33】
