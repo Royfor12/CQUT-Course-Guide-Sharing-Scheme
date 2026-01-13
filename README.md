@@ -113,7 +113,7 @@ Buy me a coffee:) or give this repo a star ⭐ — it’s free!
 
 ### 👍 各高校资料库链接
 
-参见 [Links.md](Links.md)
+参见 [Links.md](LINKS.md)
 
 ---
 
