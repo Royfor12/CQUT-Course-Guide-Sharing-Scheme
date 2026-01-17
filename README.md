@@ -1,4 +1,4 @@
-![logo](image/重庆理工大学标识/1.10%20主标识与校名（中英文）标准组合（左右横式）.png)
+![logo](https://gh-proxy.org/raw.githubusercontent.com/Royfor12/CQUT-Course-Guide-Sharing-Scheme/refs/heads/main/image/%E9%87%8D%E5%BA%86%E7%90%86%E5%B7%A5%E5%A4%A7%E5%AD%A6%E6%A0%87%E8%AF%86/1.10%20%E4%B8%BB%E6%A0%87%E8%AF%86%E4%B8%8E%E6%A0%A1%E5%90%8D%EF%BC%88%E4%B8%AD%E8%8B%B1%E6%96%87%EF%BC%89%E6%A0%87%E5%87%86%E7%BB%84%E5%90%88%EF%BC%88%E5%B7%A6%E5%8F%B3%E6%A8%AA%E5%BC%8F%EF%BC%89.png)
 
 <h1 align="center">
   课程攻略共享计划
