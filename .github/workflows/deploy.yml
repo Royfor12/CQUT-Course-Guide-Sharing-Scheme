@@ -20,7 +20,7 @@ jobs:
           python-version: '3.x'
 
       - name: Update dir
-        run: python ./update_dir.py
+        run: python -u ./.github/update_dir.py
 
       - name: Deploy docs to GitHub Pages
         uses: H-Sofie/mkdocs-deploy-with-material-theme@main
