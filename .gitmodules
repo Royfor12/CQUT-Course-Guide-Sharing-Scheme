@@ -1,0 +1,6 @@
+[submodule "课程目录/微处理器与嵌入式系统/STM32实验_TFT屏示波器"]
+	path = 课程目录/微处理器与嵌入式系统/STM32实验_TFT屏示波器
+	url = https://github.com/CQUT-handsomeboy/TFT_Oscilloscopes
+[submodule "课程目录/微处理器与嵌入式系统/STM32实验_RTC闹钟"]
+	path = 课程目录/微处理器与嵌入式系统/STM32实验_RTC闹钟
+	url = https://github.com/CQUT-handsomeboy/RTC_lab
