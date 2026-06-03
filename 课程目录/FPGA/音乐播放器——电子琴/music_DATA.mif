@@ -1,0 +1,92 @@
+-- Copyright (C) 2018  Intel Corporation. All rights reserved.
+-- Your use of Intel Corporation's design tools, logic functions 
+-- and other software and tools, and its AMPP partner logic 
+-- functions, and any output files from any of the foregoing 
+-- (including device programming or simulation files), and any 
+-- associated documentation or information are expressly subject 
+-- to the terms and conditions of the Intel Program License 
+-- Subscription Agreement, the Intel Quartus Prime License Agreement,
+-- the Intel FPGA IP License Agreement, or other applicable license
+-- agreement, including, without limitation, that your use is for
+-- the sole purpose of programming logic devices manufactured by
+-- Intel and sold by Intel or its authorized distributors.  Please
+-- refer to the applicable agreement for further details.
+
+-- Quartus Prime generated Memory Initialization File (.mif)
+
+WIDTH=4;
+DEPTH=256;
+
+ADDRESS_RADIX=UNS;
+DATA_RADIX=UNS;
+
+CONTENT BEGIN
+	[0..3]  :   3;
+	[4..6]  :   5;
+	7    :   6;
+	[8..10]  :   8;
+	11   :   9;
+	12   :   6;
+	13   :   8;
+	[14..15]  :   5;
+	[16..18]  :   12;
+	19   :   15;
+	20   :   13;
+	21   :   12;
+	22   :   10;
+	23   :   12;
+	[24..34]  :   9;
+	35   :   10;
+	[36..37]  :   7;
+	[38..39]  :   6;
+	[40..42]  :   5;
+	43   :   6;
+	[44..45]  :   8;
+	[46..47]  :   9;
+	[48..49]  :   3;
+	[50..51]  :   8;
+	52   :   6;
+	53   :   5;
+	54   :   6;
+	55   :   8;
+	[56..63]  :   5;
+	[64..66]  :   10;
+	67   :   12;
+	[68..69]  :   7;
+	[70..71]  :   9;
+	72   :   6;
+	73   :   8;
+	[74..79]  :   5;
+	80   :   3;
+	81   :   5;
+	[82..83]  :   3;
+	84   :   5;
+	85   :   6;
+	86   :   7;
+	87   :   9;
+	[88..93]  :   6;
+	94   :   5;
+	95   :   6;
+	[96..98]  :   8;
+	99   :   9;
+	[100..102]  :   12;
+	103  :   10;
+	[104..105]  :   9;
+	106  :   10;
+	107  :   9;
+	[108..109]  :   8;
+	110  :   6;
+	111  :   5;
+	[112..115]  :   3;
+	[116..119]  :   8;
+	120  :   6;
+	121  :   8;
+	122  :   6;
+	123  :   5;
+	124  :   3;
+	125  :   5;
+	126  :   6;
+	127  :   8;
+	[128..135]  :   5;
+	[136..255]  :   0;
+END;
