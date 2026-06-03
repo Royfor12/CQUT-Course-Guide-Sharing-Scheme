@@ -1,0 +1,52 @@
+// ================================================================
+// 模块名：note_decoder
+// 功能：把 4 位音符编码转换成显示码、高音标志和蜂鸣器重装值。
+//
+// 推荐接线：
+//   note_in     <- note_source_mux.note_out
+//   code[3:0]   -> LED、数码管译码输入或调试引脚
+//   high        -> HIGH 高音指示输出，可选
+//   tone_reload -> speaker_driver.tone_reload
+// ================================================================
+module note_decoder (
+    note_in,
+    code,
+    high,
+    tone_reload
+);
+    input [3:0] note_in;
+    output [3:0] code;
+    output high;
+    output [10:0] tone_reload;
+
+    reg [3:0] code_r;
+    reg high_r;
+    reg [10:0] tone_reload_r;
+
+    assign code = code_r;
+    assign high = high_r;
+    assign tone_reload = tone_reload_r;
+
+    always @(note_in) begin
+        case (note_in)
+            4'd0: begin tone_reload_r = 11'h7ff; code_r = 4'd0; high_r = 1'b0; end
+            4'd1: begin tone_reload_r = 11'h305; code_r = 4'd1; high_r = 1'b0; end
+            4'd2: begin tone_reload_r = 11'h390; code_r = 4'd2; high_r = 1'b0; end
+            4'd3: begin tone_reload_r = 11'h40c; code_r = 4'd3; high_r = 1'b0; end
+            4'd4: begin tone_reload_r = 11'h45c; code_r = 4'd4; high_r = 1'b0; end
+            4'd5: begin tone_reload_r = 11'h4ad; code_r = 4'd5; high_r = 1'b0; end
+            4'd6: begin tone_reload_r = 11'h50a; code_r = 4'd6; high_r = 1'b0; end
+            4'd7: begin tone_reload_r = 11'h55c; code_r = 4'd7; high_r = 1'b0; end
+            4'd8: begin tone_reload_r = 11'h582; code_r = 4'd1; high_r = 1'b1; end
+            4'd9: begin tone_reload_r = 11'h5c8; code_r = 4'd2; high_r = 1'b1; end
+            4'd10: begin tone_reload_r = 11'h606; code_r = 4'd3; high_r = 1'b1; end
+            4'd11: begin tone_reload_r = 11'h640; code_r = 4'd4; high_r = 1'b1; end
+            4'd12: begin tone_reload_r = 11'h656; code_r = 4'd5; high_r = 1'b1; end
+            4'd13: begin tone_reload_r = 11'h684; code_r = 4'd6; high_r = 1'b1; end
+            4'd14: begin tone_reload_r = 11'h69a; code_r = 4'd7; high_r = 1'b1; end
+            4'd15: begin tone_reload_r = 11'h6c0; code_r = 4'd1; high_r = 1'b1; end
+            default: begin tone_reload_r = 11'h7ff; code_r = 4'd0; high_r = 1'b0; end
+        endcase
+    end
+endmodule
+

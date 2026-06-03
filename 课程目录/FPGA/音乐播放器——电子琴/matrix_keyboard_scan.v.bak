@@ -1,0 +1,83 @@
+// ================================================================
+// 模块名：matrix_keyboard_scan
+// 功能：扫描底板 4x4 矩阵键盘，输出按键是否有效和按键编号。
+//
+// 推荐接线：
+//   clk        <- 板载 12MHz 时钟
+//   rst_n      <- 全局低有效复位；如果不用复位，可以接 1'b1
+//   row_n[3:0] <- 矩阵键盘 ROW1..ROW4 输入，低有效
+//   col_n[3:0] -> 矩阵键盘 COL1..COL4 输出，低有效
+//   key_valid  -> keyboard_note_map.key_valid 和 note_source_mux.key_valid
+//   key_code   -> keyboard_note_map.key_code
+//
+// 建议总线顺序：col_n[0]=COL1 ... col_n[3]=COL4；row_n[0]=ROW1 ... row_n[3]=ROW4。
+// ================================================================
+module matrix_keyboard_scan (
+    clk,
+    rst_n,
+    row_n,
+    col_n,
+    key_valid,
+    key_code
+);
+    parameter SCAN_DIV_MAX = 16'd12000;
+
+    input clk;
+    input rst_n;
+    input [3:0] row_n;
+    output [3:0] col_n;
+    output key_valid;
+    output [3:0] key_code;
+
+    reg [15:0] scan_cnt;
+    reg [1:0] col_index;
+    reg [3:0] col_n_r;
+    reg key_valid_r;
+    reg [3:0] key_code_r;
+
+    assign col_n = col_n_r;
+    assign key_valid = key_valid_r;
+    assign key_code = key_code_r;
+
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            scan_cnt <= 16'd0;
+            col_index <= 2'd0;
+        end else if (scan_cnt >= SCAN_DIV_MAX) begin
+            scan_cnt <= 16'd0;
+            col_index <= col_index + 2'd1;
+        end else begin
+            scan_cnt <= scan_cnt + 16'd1;
+        end
+    end
+
+    always @(col_index) begin
+        case (col_index)
+            2'd0: col_n_r = 4'b1110;
+            2'd1: col_n_r = 4'b1101;
+            2'd2: col_n_r = 4'b1011;
+            2'd3: col_n_r = 4'b0111;
+            default: col_n_r = 4'b1111;
+        endcase
+    end
+
+    always @(col_index or row_n) begin
+        key_valid_r = 1'b0;
+        key_code_r = 4'd0;
+
+        if (!row_n[0]) begin
+            key_valid_r = 1'b1;
+            key_code_r = {2'd0, col_index};
+        end else if (!row_n[1]) begin
+            key_valid_r = 1'b1;
+            key_code_r = {2'd1, col_index};
+        end else if (!row_n[2]) begin
+            key_valid_r = 1'b1;
+            key_code_r = {2'd2, col_index};
+        end else if (!row_n[3]) begin
+            key_valid_r = 1'b1;
+            key_code_r = {2'd3, col_index};
+        end
+    end
+endmodule
+
