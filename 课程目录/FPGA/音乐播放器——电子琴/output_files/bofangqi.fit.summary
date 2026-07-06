@@ -1,0 +1,18 @@
+Fitter Status : Successful - Tue Jun 02 16:04:05 2026
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Revision Name : bofangqi
+Top-level Entity Name : piano2
+Family : MAX 10
+Device : 10M08SAM153C8G
+Timing Models : Final
+Total logic elements : 563 / 8,064 ( 7 % )
+    Total combinational functions : 560 / 8,064 ( 7 % )
+    Dedicated logic registers : 156 / 8,064 ( 2 % )
+Total registers : 156
+Total pins : 17 / 112 ( 15 % )
+Total virtual pins : 0
+Total memory bits : 0 / 387,072 ( 0 % )
+Embedded Multiplier 9-bit elements : 0 / 48 ( 0 % )
+Total PLLs : 1 / 1 ( 100 % )
+UFM blocks : 0 / 1 ( 0 % )
+ADC blocks : 0 / 1 ( 0 % )

@@ -1,0 +1,53 @@
+// ================================================================
+// 模块名：music_addr_counter
+// 功能：产生乐谱 ROM 地址，并按当前歌曲长度 song_len 自动循环。
+//
+// 推荐接线：
+//   clk      <- 板载 12MHz 时钟
+//   rst_n    <- 全局低有效复位；如果不用复位，可以接 1'b1
+//   tick     <- tempo_tick.tick
+//   play_en  <- player_control.play_en
+//   clear    <- player_control.song_clear
+//   song_len <- song_select_mux.song_len
+//   addr     -> music_rom_song0.addr 和 music_rom_song1.addr
+//
+// addr 为 11 位，支持 0~2047 的歌曲地址。
+// ================================================================
+module music_addr_counter (
+    clk,
+    rst_n,
+    tick,
+    play_en,
+    clear,
+    song_len,
+    addr
+);
+    input clk;
+    input rst_n;
+    input tick;
+    input play_en;
+    input clear;
+    input [10:0] song_len;
+    output [10:0] addr;
+
+    reg [10:0] addr_r;
+
+    assign addr = addr_r;
+
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            addr_r <= 11'd0;
+        end else if (clear) begin
+            addr_r <= 11'd0;
+        end else if (play_en && tick) begin
+            if (song_len <= 11'd1) begin
+                addr_r <= 11'd0;
+            end else if (addr_r >= song_len - 11'd1) begin
+                addr_r <= 11'd0;
+            end else begin
+                addr_r <= addr_r + 11'd1;
+            end
+        end
+    end
+endmodule
+

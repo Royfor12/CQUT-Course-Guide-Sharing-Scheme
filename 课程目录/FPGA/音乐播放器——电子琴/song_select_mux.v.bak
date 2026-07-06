@@ -1,0 +1,34 @@
+// ================================================================
+// 模块名：song_select_mux
+// 功能：根据 song_id 选择当前歌曲的 note 和 song_len。
+//
+// 推荐接线：
+//   song_id   <- player_control.song_id
+//   note0     <- music_rom_song0.note
+//   note1     <- music_rom_song1.note
+//   len0      <- music_rom_song0.song_len
+//   len1      <- music_rom_song1.song_len
+//   song_note -> note_source_mux.song_note
+//   song_len  -> music_addr_counter.song_len
+// ================================================================
+module song_select_mux (
+    song_id,
+    note0,
+    note1,
+    len0,
+    len1,
+    song_note,
+    song_len
+);
+    input song_id;
+    input [3:0] note0;
+    input [3:0] note1;
+    input [10:0] len0;
+    input [10:0] len1;
+    output [3:0] song_note;
+    output [10:0] song_len;
+
+    assign song_note = song_id ? note1 : note0;
+    assign song_len = song_id ? len1 : len0;
+endmodule
+

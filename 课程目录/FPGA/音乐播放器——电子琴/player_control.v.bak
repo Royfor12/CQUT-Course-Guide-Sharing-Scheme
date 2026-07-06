@@ -1,0 +1,63 @@
+// ================================================================
+// 模块名：player_control
+// 功能：根据 KEY1/KEY2/KEY3 的按键脉冲控制切歌、播放、暂停。
+//
+// 推荐接线：
+//   clk             <- 板载 12MHz 时钟，和按键消抖模块使用同一个时钟
+//   rst_n           <- 全局低有效复位；如果不用复位，可以接 1'b1
+//   key_next_pulse  <- KEY1 消抖模块的 key_press_pulse
+//   key_play_pulse  <- KEY2 消抖模块的 key_press_pulse
+//   key_pause_pulse <- KEY3 消抖模块的 key_press_pulse
+//   play_en         -> music_addr_counter.play_en
+//   song_id         -> song_select_mux.song_id
+//   song_clear      -> music_addr_counter.clear
+// ================================================================
+module player_control (
+    clk,
+    rst_n,
+    key_next_pulse,
+    key_play_pulse,
+    key_pause_pulse,
+    play_en,
+    song_id,
+    song_clear
+);
+    input clk;
+    input rst_n;
+    input key_next_pulse;
+    input key_play_pulse;
+    input key_pause_pulse;
+    output play_en;
+    output song_id;
+    output song_clear;
+
+    reg play_en_r;
+    reg song_id_r;
+    reg song_clear_r;
+
+    assign play_en = play_en_r;
+    assign song_id = song_id_r;
+    assign song_clear = song_clear_r;
+
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            play_en_r <= 1'b0;
+            song_id_r <= 1'b0;
+            song_clear_r <= 1'b1;
+        end else begin
+            song_clear_r <= 1'b0;
+
+            if (key_next_pulse) begin
+                song_id_r <= ~song_id_r;
+                song_clear_r <= 1'b1;
+            end
+
+            if (key_play_pulse) begin
+                play_en_r <= 1'b1;
+            end else if (key_pause_pulse) begin
+                play_en_r <= 1'b0;
+            end
+        end
+    end
+endmodule
+

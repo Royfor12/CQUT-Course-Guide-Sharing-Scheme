@@ -1,0 +1,12 @@
+Power Analyzer Status : Successful - Tue Jun 02 16:04:11 2026
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Revision Name : bofangqi
+Top-level Entity Name : piano2
+Family : MAX 10
+Device : 10M08SAM153C8G
+Power Models : Final
+Total Thermal Power Dissipation : 125.59 mW
+Core Dynamic Thermal Power Dissipation : 0.00 mW
+Core Static Thermal Power Dissipation : 121.12 mW
+I/O Thermal Power Dissipation : 4.47 mW
+Power Estimation Confidence : Low: user provided insufficient toggle rate data

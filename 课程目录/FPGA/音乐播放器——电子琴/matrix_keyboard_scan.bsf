@@ -1,0 +1,77 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+*/
+(header "symbol" (version "1.1"))
+(symbol
+	(rect 16 16 224 128)
+	(text "matrix_keyboard_scan" (rect 5 0 98 12)(font "Arial" ))
+	(text "inst" (rect 8 96 20 108)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 10 12)(font "Arial" ))
+		(text "clk" (rect 21 27 31 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 1))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "rst_n" (rect 0 0 21 12)(font "Arial" ))
+		(text "rst_n" (rect 21 43 42 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48)(line_width 1))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "row_n[3..0]" (rect 0 0 44 12)(font "Arial" ))
+		(text "row_n[3..0]" (rect 21 59 65 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 3))
+	)
+	(port
+		(pt 208 32)
+		(output)
+		(text "col_n[3..0]" (rect 0 0 41 12)(font "Arial" ))
+		(text "col_n[3..0]" (rect 146 27 187 39)(font "Arial" ))
+		(line (pt 208 32)(pt 192 32)(line_width 3))
+	)
+	(port
+		(pt 208 48)
+		(output)
+		(text "key_valid" (rect 0 0 38 12)(font "Arial" ))
+		(text "key_valid" (rect 149 43 187 55)(font "Arial" ))
+		(line (pt 208 48)(pt 192 48)(line_width 1))
+	)
+	(port
+		(pt 208 64)
+		(output)
+		(text "key_code[3..0]" (rect 0 0 60 12)(font "Arial" ))
+		(text "key_code[3..0]" (rect 127 59 187 71)(font "Arial" ))
+		(line (pt 208 64)(pt 192 64)(line_width 3))
+	)
+	(parameter
+		"SCAN_DIV_MAX"
+		"0010111011100000"
+		""
+		(type "PARAMETER_UNSIGNED_BIN")	)
+	(drawing
+		(rectangle (rect 16 16 192 96)(line_width 1))
+	)
+	(annotation_block (parameter)(rect 224 -64 324 16))
+)

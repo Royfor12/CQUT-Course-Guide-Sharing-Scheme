@@ -1,0 +1,26 @@
+// ================================================================
+// 模块名：note_source_mux
+// 功能：在自动播放音符和矩阵键盘音符之间选择一路输出。
+//
+// 推荐接线：
+//   song_note <- song_select_mux.song_note
+//   key_valid <- matrix_keyboard_scan.key_valid
+//   key_note  <- keyboard_note_map.key_note
+//   note_out  -> note_decoder.note_in
+//
+// 矩阵键盘优先级更高；没有按键时输出自动播放歌曲音符。
+// ================================================================
+module note_source_mux (
+    song_note,
+    key_valid,
+    key_note,
+    note_out
+);
+    input [3:0] song_note;
+    input key_valid;
+    input [3:0] key_note;
+    output [3:0] note_out;
+
+    assign note_out = key_valid ? key_note : song_note;
+endmodule
+
