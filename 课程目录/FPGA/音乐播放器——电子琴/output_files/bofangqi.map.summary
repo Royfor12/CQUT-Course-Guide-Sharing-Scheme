@@ -1,0 +1,16 @@
+Analysis & Synthesis Status : Successful - Tue Jun 02 16:03:52 2026
+Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+Revision Name : bofangqi
+Top-level Entity Name : piano2
+Family : MAX 10
+Total logic elements : 565
+    Total combinational functions : 559
+    Dedicated logic registers : 156
+Total registers : 156
+Total pins : 17
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 1
+UFM blocks : 0
+ADC blocks : 0

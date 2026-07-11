@@ -1,0 +1,100 @@
+// ================================================================
+// 模块名：music_rom_song1
+// 功能：第二首歌的乐谱 ROM。
+//
+// 推荐接线：
+//   addr     <- music_addr_counter.addr
+//   note     -> song_select_mux.note1
+//   song_len -> song_select_mux.len1
+//
+// 数据来源：music_DATA.mif
+// 当前 song_len = 136。
+// ================================================================
+module music_rom_song1 (
+    addr,
+    note,
+    song_len
+);
+    input [10:0] addr;
+    output [3:0] note;
+    output [10:0] song_len;
+
+    reg [3:0] note_r;
+
+    assign note = note_r;
+    assign song_len = 11'd136;
+
+    always @(addr) begin
+        case (addr)
+            11'd0, 11'd1, 11'd2, 11'd3: note_r = 4'd3;
+            11'd4, 11'd5, 11'd6: note_r = 4'd5;
+            11'd7: note_r = 4'd6;
+            11'd8, 11'd9, 11'd10: note_r = 4'd8;
+            11'd11: note_r = 4'd9;
+            11'd12: note_r = 4'd6;
+            11'd13: note_r = 4'd8;
+            11'd14, 11'd15: note_r = 4'd5;
+            11'd16, 11'd17, 11'd18: note_r = 4'd12;
+            11'd19: note_r = 4'd15;
+            11'd20: note_r = 4'd13;
+            11'd21: note_r = 4'd12;
+            11'd22: note_r = 4'd10;
+            11'd23: note_r = 4'd12;
+            11'd24, 11'd25, 11'd26, 11'd27, 11'd28, 11'd29, 11'd30, 11'd31, 11'd32, 11'd33, 11'd34: note_r = 4'd9;
+            11'd35: note_r = 4'd10;
+            11'd36, 11'd37: note_r = 4'd7;
+            11'd38, 11'd39: note_r = 4'd6;
+            11'd40, 11'd41, 11'd42: note_r = 4'd5;
+            11'd43: note_r = 4'd6;
+            11'd44, 11'd45: note_r = 4'd8;
+            11'd46, 11'd47: note_r = 4'd9;
+            11'd48, 11'd49: note_r = 4'd3;
+            11'd50, 11'd51: note_r = 4'd8;
+            11'd52: note_r = 4'd6;
+            11'd53: note_r = 4'd5;
+            11'd54: note_r = 4'd6;
+            11'd55: note_r = 4'd8;
+            11'd56, 11'd57, 11'd58, 11'd59, 11'd60, 11'd61, 11'd62, 11'd63: note_r = 4'd5;
+            11'd64, 11'd65, 11'd66: note_r = 4'd10;
+            11'd67: note_r = 4'd12;
+            11'd68, 11'd69: note_r = 4'd7;
+            11'd70, 11'd71: note_r = 4'd9;
+            11'd72: note_r = 4'd6;
+            11'd73: note_r = 4'd8;
+            11'd74, 11'd75, 11'd76, 11'd77, 11'd78, 11'd79: note_r = 4'd5;
+            11'd80: note_r = 4'd3;
+            11'd81: note_r = 4'd5;
+            11'd82, 11'd83: note_r = 4'd3;
+            11'd84: note_r = 4'd5;
+            11'd85: note_r = 4'd6;
+            11'd86: note_r = 4'd7;
+            11'd87: note_r = 4'd9;
+            11'd88, 11'd89, 11'd90, 11'd91, 11'd92, 11'd93: note_r = 4'd6;
+            11'd94: note_r = 4'd5;
+            11'd95: note_r = 4'd6;
+            11'd96, 11'd97, 11'd98: note_r = 4'd8;
+            11'd99: note_r = 4'd9;
+            11'd100, 11'd101, 11'd102: note_r = 4'd12;
+            11'd103: note_r = 4'd10;
+            11'd104, 11'd105: note_r = 4'd9;
+            11'd106: note_r = 4'd10;
+            11'd107: note_r = 4'd9;
+            11'd108, 11'd109: note_r = 4'd8;
+            11'd110: note_r = 4'd6;
+            11'd111: note_r = 4'd5;
+            11'd112, 11'd113, 11'd114, 11'd115: note_r = 4'd3;
+            11'd116, 11'd117, 11'd118, 11'd119: note_r = 4'd8;
+            11'd120: note_r = 4'd6;
+            11'd121: note_r = 4'd8;
+            11'd122: note_r = 4'd6;
+            11'd123: note_r = 4'd5;
+            11'd124: note_r = 4'd3;
+            11'd125: note_r = 4'd5;
+            11'd126: note_r = 4'd6;
+            11'd127: note_r = 4'd8;
+            11'd128, 11'd129, 11'd130, 11'd131, 11'd132, 11'd133, 11'd134, 11'd135: note_r = 4'd5;
+            default: note_r = 4'd0;
+        endcase
+    end
+endmodule
+

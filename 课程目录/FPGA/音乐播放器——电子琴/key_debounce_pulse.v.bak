@@ -1,0 +1,68 @@
+// ================================================================
+// 模块名：key_debounce_pulse
+// 功能：按键消抖，并把一次按下转换成一个时钟周期的脉冲。
+//
+// 推荐接线：
+//   clk             <- 板载 12MHz 时钟，和控制逻辑使用同一个时钟
+//   rst_n           <- 全局低有效复位；如果不用复位，可以接 1'b1
+//   key_n           <- 一个低有效轻触按键，例如 KEY1、KEY2、KEY3
+//   key_level       -> 可选调试/状态信号，1 表示按键已按下
+//   key_press_pulse -> player_control 的 key_next/play/pause_pulse 输入
+// ================================================================
+module key_debounce_pulse (
+    clk,
+    rst_n,
+    key_n,
+    key_level,
+    key_press_pulse
+);
+    parameter DEBOUNCE_CNT_MAX = 20'd240000;
+
+    input clk;
+    input rst_n;
+    input key_n;
+    output key_level;
+    output key_press_pulse;
+
+    reg key_sync0;
+    reg key_sync1;
+    reg key_stable_n;
+    reg key_level_r;
+    reg key_level_d;
+    reg [19:0] debounce_cnt;
+
+    assign key_level = key_level_r;
+    assign key_press_pulse = key_level_r & ~key_level_d;
+
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            key_sync0 <= 1'b1;
+            key_sync1 <= 1'b1;
+        end else begin
+            key_sync0 <= key_n;
+            key_sync1 <= key_sync0;
+        end
+    end
+
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            key_stable_n <= 1'b1;
+            key_level_r <= 1'b0;
+            key_level_d <= 1'b0;
+            debounce_cnt <= 20'd0;
+        end else begin
+            key_level_d <= key_level_r;
+
+            if (key_sync1 == key_stable_n) begin
+                debounce_cnt <= 20'd0;
+            end else if (debounce_cnt >= DEBOUNCE_CNT_MAX) begin
+                key_stable_n <= key_sync1;
+                key_level_r <= ~key_sync1;
+                debounce_cnt <= 20'd0;
+            end else begin
+                debounce_cnt <= debounce_cnt + 20'd1;
+            end
+        end
+    end
+endmodule
+

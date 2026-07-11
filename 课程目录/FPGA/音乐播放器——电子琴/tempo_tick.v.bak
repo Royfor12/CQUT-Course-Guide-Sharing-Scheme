@@ -1,0 +1,50 @@
+// ================================================================
+// 模块名：tempo_tick
+// 功能：根据拨码开关产生自动播放节拍 tick。
+//
+// 推荐接线：
+//   clk      <- 板载 12MHz 时钟
+//   rst_n    <- 全局低有效复位；如果不用复位，可以接 1'b1
+//   speed_sw <- 一个拨码开关；0 选择 4Hz，1 选择 10Hz
+//   tick     -> music_addr_counter.tick
+//
+// 注意：tick 是一个时钟周期宽度的使能脉冲，不是新的时钟。
+// ================================================================
+module tempo_tick (
+    clk,
+    rst_n,
+    speed_sw,
+    tick
+);
+    parameter CLK_HZ = 12000000;
+    parameter SLOW_HZ = 4;
+    parameter FAST_HZ = 10;
+
+    input clk;
+    input rst_n;
+    input speed_sw;
+    output tick;
+
+    reg tick_r;
+    reg [31:0] cnt;
+    wire [31:0] limit;
+
+    assign limit = speed_sw ? (CLK_HZ / FAST_HZ) : (CLK_HZ / SLOW_HZ);
+    assign tick = tick_r;
+
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            cnt <= 32'd0;
+            tick_r <= 1'b0;
+        end else begin
+            if (cnt >= limit - 1) begin
+                cnt <= 32'd0;
+                tick_r <= 1'b1;
+            end else begin
+                cnt <= cnt + 32'd1;
+                tick_r <= 1'b0;
+            end
+        end
+    end
+endmodule
+

@@ -1,0 +1,49 @@
+// ================================================================
+// 模块名：keyboard_note_map
+// 功能：把矩阵键盘编号 key_code 转换成 4 位音符编码 key_note。
+//
+// 推荐接线：
+//   key_valid <- matrix_keyboard_scan.key_valid
+//   key_code  <- matrix_keyboard_scan.key_code
+//   key_note  -> note_source_mux.key_note
+// ================================================================
+module keyboard_note_map (
+    key_valid,
+    key_code,
+    key_note
+);
+    input key_valid;
+    input [3:0] key_code;
+    output [3:0] key_note;
+
+    reg [3:0] key_note_r;
+
+    assign key_note = key_note_r;
+
+    always @(key_valid or key_code) begin
+        if (!key_valid) begin
+            key_note_r = 4'd0;
+        end else begin
+            case (key_code)
+                4'd0: key_note_r = 4'd1;
+                4'd1: key_note_r = 4'd2;
+                4'd2: key_note_r = 4'd3;
+                4'd3: key_note_r = 4'd4;
+                4'd4: key_note_r = 4'd5;
+                4'd5: key_note_r = 4'd6;
+                4'd6: key_note_r = 4'd7;
+                4'd7: key_note_r = 4'd0;
+                4'd8: key_note_r = 4'd8;
+                4'd9: key_note_r = 4'd9;
+                4'd10: key_note_r = 4'd10;
+                4'd11: key_note_r = 4'd11;
+                4'd12: key_note_r = 4'd12;
+                4'd13: key_note_r = 4'd13;
+                4'd14: key_note_r = 4'd14;
+                4'd15: key_note_r = 4'd0;
+                default: key_note_r = 4'd0;
+            endcase
+        end
+    end
+endmodule
+

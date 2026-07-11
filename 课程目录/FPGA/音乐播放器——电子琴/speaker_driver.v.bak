@@ -1,0 +1,47 @@
+// ================================================================
+// 模块名：speaker_driver
+// 功能：根据 tone_reload 产生蜂鸣器方波输出 spk。
+//
+// 推荐接线：
+//   clk_audio   <- PLL 输出的 1MHz 音频时钟
+//   rst_n       <- 全局低有效复位；如果不用复位，可以接 1'b1
+//   tone_reload <- note_decoder.tone_reload
+//   mute        <- 推荐接表达式：(~play_en) & (~key_valid)
+//   spk         -> 底板蜂鸣器 BEEP/SPK 引脚，本工程当前为 PIN_B14
+//
+// 这样暂停时自动播放静音，但矩阵键盘按下时仍然可以发声。
+// ================================================================
+module speaker_driver (
+    clk_audio,
+    rst_n,
+    tone_reload,
+    mute,
+    spk
+);
+    input clk_audio;
+    input rst_n;
+    input [10:0] tone_reload;
+    input mute;
+    output spk;
+
+    reg spk_r;
+    reg [10:0] cnt;
+
+    assign spk = spk_r;
+
+    always @(posedge clk_audio or negedge rst_n) begin
+        if (!rst_n) begin
+            cnt <= 11'd0;
+            spk_r <= 1'b0;
+        end else if (mute || tone_reload == 11'h7ff) begin
+            cnt <= tone_reload;
+            spk_r <= 1'b0;
+        end else if (cnt == 11'h7ff) begin
+            cnt <= tone_reload;
+            spk_r <= ~spk_r;
+        end else begin
+            cnt <= cnt + 11'd1;
+        end
+    end
+endmodule
+
