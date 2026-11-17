@@ -16,13 +16,23 @@
 
 > 由于 GitHub 在国内直连访问的稳定性和速度欠佳，我们提供了以下加速站点，通常情况下无需代理即可流畅访问。若资源加载缓慢，尝试启用蜂窝数据或代理服务
 
-### [站点一（推荐）](https://rv.ciallichannel.com)
-
-由 [Repo-Viewer](https://github.com/CQUT-OpenProject/Repo-Viewer) 提供文件便捷预览与下载功能，CDN 加速由 [enhanced-FaaS-in-China](https://github.com/xingpingcn/enhanced-FaaS-in-China) 支持
-
-### [站点二](https://royfor12.github.io/CQUT-Course-Guide-Sharing-Scheme/)
+### [加速站点](https://royfor12.github.io/CQUT-Course-Guide-Sharing-Scheme/)
 
 由 MKDocs 自动构建的静态网页，CDN 加速由 [gh-proxy](https://gh-proxy.com/) 支持
+
+## ⚠️ 写在最前
+
+本仓库始终坚持**公开、免费、共享**的原则，希望尽可能降低信息获取的门槛，让每一位有需要的人都能便捷地获取相关资料。
+
+近期发现，有人将本仓库中公开免费的资料在校园频道进行打包售卖，利用信息差从中牟利。对此，我们深感遗憾。
+
+我们更希望，这些原本出于分享精神而公开的资料，能够真正触及需要它们的人，而不是成为信息差下的商品。
+
+如果本仓库曾对你有所帮助，欢迎：
+
+- ⭐ **点个 Star**，支持仓库持续维护，让更多人发现它。
+- 🔗 **分享仓库链接**，将获取资料的途径告诉身边有需要的人。
+- 💡 **参与贡献**，共同完善仓库，让这份共享的价值不断延续。
 
 ## 📣 收录内容
 
