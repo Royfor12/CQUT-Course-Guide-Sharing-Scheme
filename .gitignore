@@ -1,0 +1,9 @@
+# 操作系统生成的文件
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+
+# Office 和 LibreOffice 临时文件
+~$*
+.~lock.*#
